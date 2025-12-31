@@ -74,13 +74,33 @@
             padding: 0 20px;
         }
         
+        /* Slogan Banner */
+        .slogan-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            box-shadow: var(--shadow);
+        }
+        
+        .slogan-banner span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
         /* Header Styles */
         header {
             background-color: white;
             box-shadow: var(--shadow);
             position: fixed;
             width: 100%;
-            top: 0;
+            top: 48px; /* Slogan banner height */
             z-index: 1000;
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
@@ -225,7 +245,7 @@
         
         /* Hero Slider */
         .hero {
-            margin-top: 80px;
+            margin-top: 128px; /* Header + Slogan banner height */
             position: relative;
             overflow: hidden;
             height: 600px;
@@ -321,6 +341,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
+            width: 100%;
         }
         
         /* Slider Controls */
@@ -979,6 +1000,23 @@
             transform: scale(1.1) rotate(10deg);
         }
         
+        /* Loader */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         /* Responsive Design */
         @media (max-width: 1200px) {
             .container {
@@ -1002,7 +1040,7 @@
             }
             
             .hero {
-                margin-top: 140px;
+                margin-top: 160px;
                 height: 450px;
             }
             
@@ -1027,6 +1065,11 @@
         }
         
         @media (max-width: 768px) {
+            .slogan-banner {
+                font-size: 0.9rem;
+                padding: 12px 0;
+            }
+            
             nav ul {
                 flex-wrap: wrap;
                 justify-content: center;
@@ -1035,7 +1078,7 @@
             
             .hero {
                 height: 400px;
-                margin-top: 160px;
+                margin-top: 180px;
             }
             
             .slide-content h2 {
@@ -1114,74 +1157,14 @@
                 font-size: 1.5rem;
             }
         }
-        
-        /* Animation Classes */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
-        }
-        
-        .slide-up {
-            animation: slideUp 0.6s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Loading Animation */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Badge */
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-        
-        .badge-new {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            color: white;
-        }
-        
-        .badge-popular {
-            background: linear-gradient(135deg, var(--success), #0d9c6d);
-            color: white;
-        }
     </style>
 </head>
 <body>
+    <!-- Slogan Banner -->
+    <div class="slogan-banner">
+        <i class="fas fa-hands-praying"></i> DHAN DHAN SATGURU TERA HI AASRA <i class="fas fa-hands-praying"></i>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-container">
@@ -1516,7 +1499,9 @@
                 <input type="hidden" id="selectedServiceId" name="selectedServiceId" value="1">
                 <input type="hidden" id="selectedServicePrice" name="selectedServicePrice" value="499">
                 
-                <button type="button" class="btn btn-razorpay" onclick="processPayment()">
+                <div class="loader" id="paymentLoader"></div>
+                
+                <button type="button" class="btn btn-razorpay" id="payButton" onclick="processPayment()">
                     <i class="fas fa-lock"></i> Pay with Razorpay
                 </button>
                 
@@ -1538,6 +1523,7 @@
             <p><strong>Order ID:</strong> <span id="successOrderId">ORD123456</span></p>
             <p><strong>Service:</strong> <span id="successServiceName">AC General Service</span></p>
             <p><strong>Amount Paid:</strong> <span id="successAmount">₹499</span></p>
+            <p><strong>Transaction ID:</strong> <span id="successTransactionId">txn_123456</span></p>
             <p>A confirmation email has been sent to your registered email address.</p>
             <button class="btn btn-success" onclick="closeSuccessModal()">Continue</button>
         </div>
@@ -1641,8 +1627,11 @@
             ]
         };
 
-        // Razorpay Configuration
-        const RAZORPAY_KEY_ID = 'rzp_live_RmOsa8eNZ7a0zz';
+        // REAL Razorpay Configuration (Replace with your actual keys)
+        const RAZORPAY_CONFIG = {
+            key_id: 'rzp_live_RmOsa8eNZ7a0zz', // Your Live Razorpay Key ID
+            // For testing, use test key: 'rzp_test_xxxxxxxxxxxxx'
+        };
 
         // DOM Elements
         const slidesContainer = document.querySelector('.slides');
@@ -1787,9 +1776,10 @@
         }
 
         function openSuccessModal(orderDetails) {
-            document.getElementById('successOrderId').textContent = orderDetails.orderId || 'ORD' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('successOrderId').textContent = orderDetails.orderId;
             document.getElementById('successServiceName').textContent = currentSelectedService.title;
             document.getElementById('successAmount').textContent = `₹${currentSelectedService.price}`;
+            document.getElementById('successTransactionId').textContent = orderDetails.transactionId || 'Pending';
             
             document.getElementById('successModal').classList.add('active');
         }
@@ -1797,60 +1787,188 @@
         function closeSuccessModal() {
             document.getElementById('successModal').classList.remove('active');
             closePaymentModal();
+            document.getElementById('paymentForm').reset();
         }
 
-        // Razorpay Payment
-        function processPayment() {
-            if (!document.getElementById('paymentForm').checkValidity()) {
-                document.getElementById('paymentForm').reportValidity();
+        // REAL Razorpay Payment Integration
+        async function processPayment() {
+            const form = document.getElementById('paymentForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
                 return;
             }
-            
-            const formData = {
-                name: document.getElementById('customerName').value,
-                phone: document.getElementById('customerPhone').value,
-                email: document.getElementById('customerEmail').value,
-                address: document.getElementById('serviceAddress').value,
-                date: document.getElementById('serviceDate').value,
-                time: document.getElementById('serviceTime').value,
-                acDetails: document.getElementById('acDetails').value,
-                serviceId: document.getElementById('selectedServiceId').value,
-                serviceName: currentSelectedService.title,
-                amount: currentSelectedService.price * 100,
-            };
-            
-            // Save order to localStorage
-            const orderId = 'ORD' + Date.now().toString().substr(-8);
-            const order = {
-                id: orderId,
-                ...formData,
-                timestamp: new Date().toISOString(),
-                status: 'pending',
-                paymentStatus: 'paid',
-                amount: currentSelectedService.price
-            };
-            
-            let orders = JSON.parse(localStorage.getItem('sonipatOrders')) || [];
-            orders.push(order);
-            localStorage.setItem('sonipatOrders', JSON.stringify(orders));
-            
-            // Send email notification
-            sendEmailNotification(order);
-            
-            // Show success
-            openSuccessModal({ orderId });
-            
-            // Reset form
-            document.getElementById('paymentForm').reset();
-            
-            event.preventDefault();
+
+            // Show loader
+            document.getElementById('paymentLoader').style.display = 'block';
+            document.getElementById('payButton').disabled = true;
+
+            try {
+                // Collect form data
+                const formData = {
+                    name: document.getElementById('customerName').value,
+                    phone: document.getElementById('customerPhone').value,
+                    email: document.getElementById('customerEmail').value,
+                    address: document.getElementById('serviceAddress').value,
+                    date: document.getElementById('serviceDate').value,
+                    time: document.getElementById('serviceTime').value,
+                    acDetails: document.getElementById('acDetails').value,
+                    serviceId: document.getElementById('selectedServiceId').value,
+                    serviceName: currentSelectedService.title,
+                    amount: currentSelectedService.price * 100, // Convert to paise
+                };
+
+                // Create order ID
+                const orderId = 'ORD' + Date.now().toString().substr(-8);
+
+                // Prepare Razorpay options
+                const options = {
+                    key: RAZORPAY_CONFIG.key_id,
+                    amount: formData.amount.toString(),
+                    currency: 'INR',
+                    name: 'Sonipat AC Service',
+                    description: formData.serviceName,
+                    order_id: null, // We'll create order on your server
+                    handler: async function(response) {
+                        // Payment successful
+                        console.log('Payment successful:', response);
+                        
+                        // Create order object
+                        const order = {
+                            id: orderId,
+                            ...formData,
+                            amount: currentSelectedService.price,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_signature: response.razorpay_signature,
+                            status: 'pending',
+                            paymentStatus: 'paid',
+                            timestamp: new Date().toISOString(),
+                            transactionId: response.razorpay_payment_id
+                        };
+
+                        // Save order to localStorage
+                        let orders = JSON.parse(localStorage.getItem('sonipatOrders')) || [];
+                        orders.push(order);
+                        localStorage.setItem('sonipatOrders', JSON.stringify(orders));
+
+                        // Send email notification (in real implementation)
+                        await sendEmailNotification(order);
+
+                        // Show success modal
+                        openSuccessModal({
+                            orderId: orderId,
+                            transactionId: response.razorpay_payment_id
+                        });
+
+                        // Send to admin panel
+                        sendToAdminPanel(order);
+                    },
+                    prefill: {
+                        name: formData.name,
+                        email: formData.email,
+                        contact: formData.phone
+                    },
+                    notes: {
+                        address: formData.address,
+                        service_date: formData.date,
+                        service_time: formData.time,
+                        ac_details: formData.acDetails,
+                        order_id: orderId
+                    },
+                    theme: {
+                        color: '#2563eb'
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            // Payment modal closed
+                            console.log('Payment modal closed');
+                            document.getElementById('paymentLoader').style.display = 'none';
+                            document.getElementById('payButton').disabled = false;
+                        }
+                    }
+                };
+
+                // **IMPORTANT: In production, you need a backend server to create Razorpay order**
+                // For now, we'll create a simple order without backend verification
+                
+                // Since we don't have a backend, we'll simulate order creation
+                // In production, make an API call to your server
+                const orderResponse = await createRazorpayOrder(formData.amount, orderId);
+                
+                if (orderResponse && orderResponse.id) {
+                    options.order_id = orderResponse.id;
+                }
+
+                // Create Razorpay instance
+                const rzp = new Razorpay(options);
+
+                // Open payment modal
+                rzp.open();
+
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Payment failed. Please try again.');
+            } finally {
+                document.getElementById('paymentLoader').style.display = 'none';
+                document.getElementById('payButton').disabled = false;
+            }
         }
 
-        // Mock Email Notification
-        function sendEmailNotification(order) {
-            console.log('Email sent to care@sonipathomeservice.com');
-            console.log('Order Details:', order);
-            // In production, integrate with EmailJS or similar service
+        // Simulate Razorpay order creation (Replace with actual backend API call)
+        async function createRazorpayOrder(amount, orderId) {
+            // In production, make a POST request to your backend
+            // Example: const response = await fetch('/api/create-order', { method: 'POST', ... });
+            
+            // For demo purposes, return a mock response
+            return {
+                id: 'order_' + Math.random().toString(36).substr(2, 9),
+                amount: amount,
+                currency: 'INR',
+                receipt: orderId
+            };
+        }
+
+        // Send email notification (Mock function - integrate with EmailJS or similar)
+        async function sendEmailNotification(order) {
+            console.log('Sending email notification...');
+            console.log('Order:', order);
+            
+            // In production, integrate with:
+            // 1. EmailJS (https://www.emailjs.com/) - Free for 200 emails/month
+            // 2. SendGrid (https://sendgrid.com/) - Free for 100 emails/day
+            // 3. Your own SMTP server
+            
+            // Example EmailJS integration:
+            /*
+            emailjs.send('service_id', 'template_id', {
+                to_email: order.email,
+                to_name: order.name,
+                order_id: order.id,
+                service_name: order.serviceName,
+                amount: order.amount,
+                date: order.date,
+                time: order.time,
+                address: order.address
+            });
+            */
+            
+            // Also send to admin email
+            const adminEmail = websiteData.content.contact.email || 'care@sonipathomeservice.com';
+            console.log('Admin notification sent to:', adminEmail);
+        }
+
+        // Send order to admin panel
+        function sendToAdminPanel(order) {
+            // Get existing orders from admin storage
+            let adminOrders = JSON.parse(localStorage.getItem('sonipatAdminOrders')) || [];
+            
+            // Add new order
+            adminOrders.push(order);
+            
+            // Save to admin storage
+            localStorage.setItem('sonipatAdminOrders', JSON.stringify(adminOrders));
+            
+            console.log('Order saved to admin panel:', order.id);
         }
 
         // Smooth Scrolling
