@@ -50,6 +50,27 @@
             padding: 20px;
         }
         
+        /* Slogan Banner */
+        .slogan-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            z-index: 1001;
+            box-shadow: var(--shadow);
+        }
+        
+        .slogan-banner span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
         /* Login Page */
         .login-container {
             background: white;
@@ -59,6 +80,7 @@
             max-width: 400px;
             padding: 40px;
             text-align: center;
+            margin-top: 40px; /* For slogan banner */
         }
         
         .login-header {
@@ -154,6 +176,7 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-lg);
+            margin-top: 40px; /* For slogan banner */
         }
         
         /* Sidebar */
@@ -295,42 +318,6 @@
             color: var(--gray);
         }
         
-        .notification-btn {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            color: var(--gray);
-            cursor: pointer;
-            position: relative;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        
-        .notification-btn:hover {
-            background: var(--gray-light);
-            color: var(--dark);
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--danger);
-            color: white;
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
         /* Stats Cards */
         .stats-grid {
             display: grid;
@@ -412,49 +399,6 @@
         .stat-label {
             color: var(--gray);
             font-size: 0.9rem;
-        }
-        
-        .stat-change {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.85rem;
-            margin-top: 10px;
-        }
-        
-        .stat-change.positive {
-            color: var(--success);
-        }
-        
-        .stat-change.negative {
-            color: var(--danger);
-        }
-        
-        /* Charts */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .chart-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-        }
-        
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .chart-header h3 {
-            font-size: 1.2rem;
-            color: var(--dark);
         }
         
         /* Tables */
@@ -590,225 +534,32 @@
             transform: scale(1.1);
         }
         
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal-overlay.active {
-            display: flex;
-        }
-        
-        .modal {
-            background: white;
-            border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-            animation: modalSlideIn 0.3s ease;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px;
-            border-bottom: 2px solid var(--gray-light);
-        }
-        
-        .modal-header h3 {
-            font-size: 1.5rem;
-            color: var(--dark);
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+        /* No Orders Message */
+        .no-orders {
+            text-align: center;
+            padding: 40px;
             color: var(--gray);
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
         }
         
-        .close-modal:hover {
-            background: var(--gray-light);
-            color: var(--danger);
-        }
-        
-        .modal-body {
-            padding: 25px;
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .no-orders i {
+            font-size: 3rem;
             margin-bottom: 20px;
-        }
-        
-        .modal-footer {
-            padding: 20px 25px;
-            border-top: 2px solid var(--gray-light);
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-        }
-        
-        /* Tabs */
-        .tabs {
-            display: flex;
-            border-bottom: 2px solid var(--gray-light);
-            margin-bottom: 25px;
-        }
-        
-        .tab {
-            padding: 12px 25px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--gray);
-            border-bottom: 2px solid transparent;
-            margin-bottom: -2px;
-            transition: var(--transition);
-        }
-        
-        .tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .service-item {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .service-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .service-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-        
-        .service-title {
-            font-size: 1.2rem;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-        
-        .service-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .service-features {
-            list-style: none;
-            margin: 15px 0;
-        }
-        
-        .service-features li {
-            padding: 5px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--gray);
-        }
-        
-        .service-features li i {
-            color: var(--success);
-        }
-        
-        .service-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            color: var(--gray-light);
         }
         
         /* Responsive */
-        @media (max-width: 1200px) {
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 70px;
+        @media (max-width: 768px) {
+            .slogan-banner {
+                font-size: 0.9rem;
+                padding: 8px;
             }
             
-            .sidebar-header h2 span,
-            .nav-link span,
-            .user-info .user-details,
-            .sidebar-header p {
-                display: none;
+            .login-container {
+                margin-top: 30px;
             }
             
-            .sidebar-header h2 {
-                justify-content: center;
-            }
-            
-            .nav-link {
-                justify-content: center;
-                padding: 15px;
-            }
-            
-            .user-info {
-                justify-content: center;
-                padding: 10px;
+            .dashboard-container {
+                margin-top: 30px;
             }
             
             .search-box input {
@@ -816,49 +567,19 @@
             }
         }
         
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .table-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: stretch;
-            }
-            
-            .table-actions {
-                justify-content: flex-end;
-            }
-            
-            table {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
         @media (max-width: 576px) {
             .search-box input {
                 width: 150px;
-            }
-            
-            .header-actions {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .modal {
-                width: 95%;
-                margin: 10px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Slogan Banner -->
+    <div class="slogan-banner">
+        <i class="fas fa-hands-praying"></i> DHAN DHAN SATGURU TERA HI AASRA <i class="fas fa-hands-praying"></i>
+    </div>
+    
     <!-- Login Screen -->
     <div id="loginScreen" class="login-container">
         <div class="login-header">
@@ -912,25 +633,7 @@
                     <a href="#orders" class="nav-link" data-tab="orders">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Orders</span>
-                        <span class="notification-badge" id="orderNotification">5</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#services" class="nav-link" data-tab="services">
-                        <i class="fas fa-tools"></i>
-                        <span>Services</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#customers" class="nav-link" data-tab="customers">
-                        <i class="fas fa-users"></i>
-                        <span>Customers</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#payments" class="nav-link" data-tab="payments">
-                        <i class="fas fa-credit-card"></i>
-                        <span>Payments</span>
+                        <span class="notification-badge" id="orderNotification">0</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -963,22 +666,17 @@
             <div class="top-bar">
                 <div class="page-title">
                     <h1 id="pageTitle">Dashboard Overview</h1>
-                    <p id="pageSubtitle">Welcome back! Here's what's happening with your business today.</p>
+                    <p id="pageSubtitle">Real-time business insights</p>
                 </div>
                 
                 <div class="header-actions">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="globalSearch" placeholder="Search...">
+                        <input type="text" id="globalSearch" placeholder="Search orders...">
                     </div>
                     
-                    <button class="notification-btn" onclick="showNotifications()">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">3</span>
-                    </button>
-                    
-                    <button class="btn btn-sm" onclick="exportData()">
-                        <i class="fas fa-download"></i> Export
+                    <button class="btn btn-sm" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt"></i> Refresh
                     </button>
                 </div>
             </div>
@@ -997,9 +695,6 @@
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
                         </div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i> 12% from last month
-                        </div>
                     </div>
                     
                     <div class="stat-card revenue">
@@ -1011,9 +706,6 @@
                             <div class="stat-icon">
                                 <i class="fas fa-rupee-sign"></i>
                             </div>
-                        </div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i> 18% from last month
                         </div>
                     </div>
                     
@@ -1027,9 +719,6 @@
                                 <i class="fas fa-clock"></i>
                             </div>
                         </div>
-                        <div class="stat-change negative">
-                            <i class="fas fa-arrow-down"></i> 2 from yesterday
-                        </div>
                     </div>
                     
                     <div class="stat-card">
@@ -1042,31 +731,6 @@
                                 <i class="fas fa-users"></i>
                             </div>
                         </div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i> 5 new this week
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Charts -->
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Revenue Overview</h3>
-                            <select id="chartPeriod" style="padding: 8px; border-radius: 6px; border: 1px solid #ddd;">
-                                <option>Last 7 days</option>
-                                <option>Last 30 days</option>
-                                <option>Last 3 months</option>
-                            </select>
-                        </div>
-                        <canvas id="revenueChart" height="250"></canvas>
-                    </div>
-                    
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <h3>Order Status</h3>
-                        </div>
-                        <canvas id="orderStatusChart" height="250"></canvas>
                     </div>
                 </div>
                 
@@ -1077,9 +741,6 @@
                         <div class="table-actions">
                             <button class="btn btn-sm btn-outline" onclick="viewAllOrders()">
                                 <i class="fas fa-eye"></i> View All
-                            </button>
-                            <button class="btn btn-sm" onclick="addNewOrder()">
-                                <i class="fas fa-plus"></i> Add Order
                             </button>
                         </div>
                     </div>
@@ -1094,13 +755,18 @@
                                     <th>Amount</th>
                                     <th>Date</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>Payment</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="recentOrdersBody">
                                 <!-- Orders will be loaded here -->
                             </tbody>
                         </table>
+                        <div id="noRecentOrders" class="no-orders" style="display: none;">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>No Orders Yet</h3>
+                            <p>Orders will appear here when customers book services</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1114,21 +780,10 @@
                             <button class="btn btn-sm btn-outline" onclick="refreshOrders()">
                                 <i class="fas fa-sync-alt"></i> Refresh
                             </button>
-                            <button class="btn btn-sm" onclick="addNewOrder()">
-                                <i class="fas fa-plus"></i> Add New Order
-                            </button>
                             <button class="btn btn-sm" onclick="exportOrders()">
                                 <i class="fas fa-download"></i> Export
                             </button>
                         </div>
-                    </div>
-                    
-                    <div class="tabs">
-                        <button class="tab active" data-status="all">All Orders</button>
-                        <button class="tab" data-status="pending">Pending</button>
-                        <button class="tab" data-status="processing">Processing</button>
-                        <button class="tab" data-status="completed">Completed</button>
-                        <button class="tab" data-status="cancelled">Cancelled</button>
                     </div>
                     
                     <div style="overflow-x: auto;">
@@ -1143,99 +798,18 @@
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Payment</th>
-                                    <th>Actions</th>
+                                    <th>Transaction ID</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="ordersBody">
                                 <!-- All orders will be loaded here -->
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Services Tab -->
-            <div id="servicesTab" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3>Manage Services</h3>
-                        <div class="table-actions">
-                            <button class="btn btn-sm" onclick="addNewService()">
-                                <i class="fas fa-plus"></i> Add New Service
-                            </button>
+                        <div id="noOrders" class="no-orders" style="display: none;">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>No Orders Found</h3>
+                            <p>When customers make bookings, orders will appear here</p>
                         </div>
-                    </div>
-                    
-                    <div class="services-grid" id="servicesGrid">
-                        <!-- Services will be loaded here -->
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Customers Tab -->
-            <div id="customersTab" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3>Customer Management</h3>
-                        <div class="table-actions">
-                            <button class="btn btn-sm" onclick="sendBulkEmail()">
-                                <i class="fas fa-envelope"></i> Send Email
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div style="overflow-x: auto;">
-                        <table id="customersTable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Orders</th>
-                                    <th>Total Spent</th>
-                                    <th>Last Order</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Customers will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Payments Tab -->
-            <div id="paymentsTab" class="tab-content">
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3>Payment Transactions</h3>
-                        <div class="table-actions">
-                            <button class="btn btn-sm" onclick="refreshPayments()">
-                                <i class="fas fa-sync-alt"></i> Refresh
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div style="overflow-x: auto;">
-                        <table id="paymentsTable">
-                            <thead>
-                                <tr>
-                                    <th>Transaction ID</th>
-                                    <th>Order ID</th>
-                                    <th>Customer</th>
-                                    <th>Amount</th>
-                                    <th>Method</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Payments will be loaded here -->
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -1244,450 +818,41 @@
             <div id="settingsTab" class="tab-content">
                 <div class="table-card">
                     <div class="table-header">
-                        <h3>Website Settings</h3>
+                        <h3>Admin Settings</h3>
                     </div>
                     
-                    <div class="tabs">
-                        <button class="tab active" data-setting="general">General</button>
-                        <button class="tab" data-setting="email">Email</button>
-                        <button class="tab" data-setting="payment">Payment</button>
-                        <button class="tab" data-setting="backup">Backup</button>
-                    </div>
-                    
-                    <!-- General Settings -->
-                    <div id="generalSettings" class="tab-content active">
-                        <form id="generalSettingsForm">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Website Name</label>
-                                    <input type="text" id="siteName" value="Sonipat AC Service">
-                                </div>
-                                <div class="form-group">
-                                    <label>Contact Phone</label>
-                                    <input type="text" id="sitePhone" value="8816014071">
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Contact Email</label>
-                                    <input type="email" id="siteEmail" value="care@sonipathomeservice.com">
-                                </div>
-                                <div class="form-group">
-                                    <label>Business Address</label>
-                                    <input type="text" id="siteAddress" value="128/1, Near Baba Dham Mandir, Sonipat, Haryana">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Business Hours</label>
-                                <textarea id="siteHours" rows="3">Monday - Sunday: 8:00 AM - 9:00 PM\nEmergency Service: 24/7 Available</textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Footer Text</label>
-                                <textarea id="siteFooter" rows="2">Professional AC repair, installation, and maintenance services in Sonipat. Your comfort is our priority.</textarea>
-                            </div>
-                            
-                            <button type="button" class="btn" onclick="saveGeneralSettings()">
-                                <i class="fas fa-save"></i> Save Settings
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <!-- Email Settings -->
-                    <div id="emailSettings" class="tab-content">
-                        <form id="emailSettingsForm">
-                            <div class="form-group">
-                                <label>Admin Email</label>
-                                <input type="email" id="adminEmail" value="care@sonipathomeservice.com">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Email Subject Prefix</label>
-                                <input type="text" id="emailPrefix" value="[Sonipat AC Service]">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Order Confirmation Template</label>
-                                <textarea id="orderTemplate" rows="8">
-Dear {customer_name},
-
-Thank you for booking with Sonipat AC Service!
-
-Order Details:
-- Order ID: {order_id}
-- Service: {service_name}
-- Amount: ₹{amount}
-- Date: {service_date}
-- Time: {service_time}
-
-Our technician will contact you shortly.
-
-Best regards,
-Sonipat AC Service Team
-                                </textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Send Test Email</label>
-                                <div class="form-row">
-                                    <input type="email" id="testEmail" placeholder="Enter email address">
-                                    <button type="button" class="btn btn-outline" onclick="sendTestEmail()">
-                                        <i class="fas fa-paper-plane"></i> Send Test
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <button type="button" class="btn" onclick="saveEmailSettings()">
-                                <i class="fas fa-save"></i> Save Email Settings
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <!-- Payment Settings -->
-                    <div id="paymentSettings" class="tab-content">
-                        <form id="paymentSettingsForm">
-                            <div class="form-group">
-                                <label>Razorpay Key ID</label>
-                                <input type="text" id="razorpayKey" value="rzp_live_RmOsa8eNZ7a0zz">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Razorpay Secret Key</label>
-                                <input type="password" id="razorpaySecret" value="****************">
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Currency</label>
-                                    <select id="paymentCurrency">
-                                        <option value="INR" selected>Indian Rupee (INR)</option>
-                                        <option value="USD">US Dollar (USD)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Payment Timeout (minutes)</label>
-                                    <input type="number" id="paymentTimeout" value="30" min="5" max="120">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Payment Methods</label>
-                                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
-                                    <label style="display: flex; align-items: center; gap: 8px;">
-                                        <input type="checkbox" checked> Credit/Debit Card
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 8px;">
-                                        <input type="checkbox" checked> Net Banking
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 8px;">
-                                        <input type="checkbox" checked> UPI
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 8px;">
-                                        <input type="checkbox" checked> Wallet
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <button type="button" class="btn" onclick="savePaymentSettings()">
-                                <i class="fas fa-save"></i> Save Payment Settings
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <!-- Backup Settings -->
-                    <div id="backupSettings" class="tab-content">
+                    <form id="settingsForm">
                         <div class="form-group">
-                            <h4>Data Backup</h4>
-                            <p>Backup your website data regularly to prevent data loss.</p>
-                            
-                            <div style="display: flex; gap: 15px; margin: 20px 0;">
-                                <button class="btn" onclick="createBackup()">
-                                    <i class="fas fa-download"></i> Create Backup
-                                </button>
-                                <button class="btn btn-outline" onclick="restoreBackup()">
-                                    <i class="fas fa-upload"></i> Restore Backup
-                                </button>
-                            </div>
+                            <label>Admin Password</label>
+                            <input type="password" id="adminPassword" placeholder="Change admin password">
                         </div>
                         
                         <div class="form-group">
-                            <h4>Recent Backups</h4>
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Size</th>
-                                        <th>Type</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="backupList">
-                                    <!-- Backup list will be loaded here -->
-                                </tbody>
-                            </table>
+                            <label>Notification Email</label>
+                            <input type="email" id="notificationEmail" value="care@sonipathomeservice.com">
                         </div>
                         
                         <div class="form-group">
-                            <h4>Auto Backup</h4>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Auto Backup Frequency</label>
-                                    <select id="backupFrequency">
-                                        <option value="daily">Daily</option>
-                                        <option value="weekly" selected>Weekly</option>
-                                        <option value="monthly">Monthly</option>
-                                        <option value="never">Never</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Keep Backups For</label>
-                                    <select id="backupRetention">
-                                        <option value="7">7 days</option>
-                                        <option value="30" selected>30 days</option>
-                                        <option value="90">90 days</option>
-                                        <option value="365">1 year</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <button type="button" class="btn" onclick="saveBackupSettings()">
-                                <i class="fas fa-save"></i> Save Backup Settings
-                            </button>
+                            <label>Razorpay Key ID</label>
+                            <input type="text" id="razorpayKey" value="rzp_live_RmOsa8eNZ7a0zz">
                         </div>
-                    </div>
+                        
+                        <button type="button" class="btn" onclick="saveSettings()">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Modals -->
-    <div id="orderModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="modalTitle">Add New Order</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="orderForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Customer Name *</label>
-                            <input type="text" id="orderCustomer" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number *</label>
-                            <input type="tel" id="orderPhone" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Email Address *</label>
-                            <input type="email" id="orderEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Service *</label>
-                            <select id="orderService" required></select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Amount (₹) *</label>
-                            <input type="number" id="orderAmount" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Status *</label>
-                            <select id="orderStatus" required>
-                                <option value="pending">Pending</option>
-                                <option value="processing">Processing</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Service Date *</label>
-                            <input type="date" id="orderDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Service Time *</label>
-                            <select id="orderTime" required>
-                                <option value="9:00 AM - 12:00 PM">9:00 AM - 12:00 PM</option>
-                                <option value="12:00 PM - 3:00 PM">12:00 PM - 3:00 PM</option>
-                                <option value="3:00 PM - 6:00 PM">3:00 PM - 6:00 PM</option>
-                                <option value="6:00 PM - 9:00 PM">6:00 PM - 9:00 PM</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Service Address *</label>
-                        <textarea id="orderAddress" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>AC Details</label>
-                        <textarea id="orderDetails" rows="2"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Payment Method</label>
-                        <select id="orderPaymentMethod">
-                            <option value="razorpay">Razorpay</option>
-                            <option value="cash">Cash</option>
-                            <option value="bank_transfer">Bank Transfer</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Payment Status</label>
-                        <select id="orderPaymentStatus">
-                            <option value="pending">Pending</option>
-                            <option value="paid">Paid</option>
-                            <option value="failed">Failed</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Notes (Internal)</label>
-                        <textarea id="orderNotes" rows="3"></textarea>
-                    </div>
-                    
-                    <input type="hidden" id="orderId">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-                <button class="btn" onclick="saveOrder()">Save Order</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Service Modal -->
-    <div id="serviceModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="serviceModalTitle">Add New Service</h3>
-                <button class="close-modal" onclick="closeServiceModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="serviceForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Service Title *</label>
-                            <input type="text" id="serviceTitle" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Price (₹) *</label>
-                            <input type="number" id="servicePrice" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Period Text</label>
-                            <input type="text" id="servicePeriod" value="/per AC">
-                        </div>
-                        <div class="form-group">
-                            <label>Image URL</label>
-                            <input type="text" id="serviceImage">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Description *</label>
-                        <textarea id="serviceDescription" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Features (one per line) *</label>
-                        <textarea id="serviceFeatures" rows="5" required></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Display Order</label>
-                            <input type="number" id="serviceOrder" value="1" min="1">
-                        </div>
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select id="serviceStatus">
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <input type="hidden" id="serviceId">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeServiceModal()">Cancel</button>
-                <button class="btn" onclick="saveService()">Save Service</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Notification Modal -->
-    <div id="notificationModal" class="modal-overlay">
-        <div class="modal" style="max-width: 400px;">
-            <div class="modal-header">
-                <h3>Notifications</h3>
-                <button class="close-modal" onclick="closeNotificationModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="notificationList">
-                    <!-- Notifications will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
-    
+
     <script>
-        // Data Management
-        const adminData = {
-            settings: JSON.parse(localStorage.getItem('sonipatAdminSettings')) || {
-                site: {
-                    name: "Sonipat AC Service",
-                    phone: "8816014071",
-                    email: "care@sonipathomeservice.com",
-                    address: "128/1, Near Baba Dham Mandir, Sonipat, Haryana",
-                    hours: "Monday - Sunday: 8:00 AM - 9:00 PM\nEmergency Service: 24/7 Available",
-                    footer: "Professional AC repair, installation, and maintenance services in Sonipat. Your comfort is our priority."
-                },
-                email: {
-                    adminEmail: "care@sonipathomeservice.com",
-                    prefix: "[Sonipat AC Service]",
-                    template: `Dear {customer_name},\n\nThank you for booking with Sonipat AC Service!\n\nOrder Details:\n- Order ID: {order_id}\n- Service: {service_name}\n- Amount: ₹{amount}\n- Date: {service_date}\n- Time: {service_time}\n\nOur technician will contact you shortly.\n\nBest regards,\nSonipat AC Service Team`
-                },
-                payment: {
-                    razorpayKey: "rzp_live_RmOsa8eNZ7a0zz",
-                    currency: "INR",
-                    timeout: 30
-                },
-                backup: {
-                    frequency: "weekly",
-                    retention: 30
-                }
-            },
-            orders: JSON.parse(localStorage.getItem('sonipatOrders')) || [],
-            services: JSON.parse(localStorage.getItem('sonipatServices')) || [],
-            customers: JSON.parse(localStorage.getItem('sonipatCustomers')) || [],
-            backups: JSON.parse(localStorage.getItem('sonipatBackups')) || []
-        };
-
         // Authentication
         const ADMIN_CREDENTIALS = {
             username: "admin",
             password: "admin123"
         };
 
-        let currentUser = null;
         let isLoggedIn = localStorage.getItem('sonipatAdminLoggedIn') === 'true';
 
         // Initialize
@@ -1697,7 +862,6 @@ Sonipat AC Service Team
             }
             
             setupEventListeners();
-            loadInitialData();
         });
 
         // Login Function
@@ -1707,10 +871,8 @@ Sonipat AC Service Team
             const alert = document.getElementById('loginAlert');
             
             if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                currentUser = { username, role: 'admin' };
                 localStorage.setItem('sonipatAdminLoggedIn', 'true');
                 showDashboard();
-                showAlert('success', 'Login successful!');
             } else {
                 alert.style.display = 'block';
                 alert.textContent = 'Invalid username or password!';
@@ -1731,7 +893,6 @@ Sonipat AC Service Team
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
                 localStorage.removeItem('sonipatAdminLoggedIn');
-                currentUser = null;
                 document.getElementById('dashboard').style.display = 'none';
                 document.getElementById('loginScreen').style.display = 'block';
                 document.getElementById('loginForm').reset();
@@ -1759,26 +920,10 @@ Sonipat AC Service Team
                 });
             });
             
-            // Settings Tabs
-            document.querySelectorAll('[data-setting]').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const setting = this.getAttribute('data-setting');
-                    switchSettingsTab(setting);
-                });
-            });
-            
-            // Order Tabs
-            document.querySelectorAll('[data-status]').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const status = this.getAttribute('data-status');
-                    filterOrders(status);
-                });
-            });
-            
-            // Global Search
+            // Search
             document.getElementById('globalSearch').addEventListener('input', function(e) {
                 const searchTerm = e.target.value.toLowerCase();
-                performGlobalSearch(searchTerm);
+                filterOrders(searchTerm);
             });
         }
 
@@ -1794,44 +939,37 @@ Sonipat AC Service Team
             
             // Update page title
             const titles = {
-                dashboard: { title: 'Dashboard Overview', subtitle: 'Welcome back! Here\'s what\'s happening with your business today.' },
-                orders: { title: 'Order Management', subtitle: 'Manage all customer orders and bookings.' },
-                services: { title: 'Service Management', subtitle: 'Add, edit, or remove services from your website.' },
-                customers: { title: 'Customer Management', subtitle: 'View and manage your customer database.' },
-                payments: { title: 'Payment Transactions', subtitle: 'Track all payment transactions and status.' },
-                settings: { title: 'Website Settings', subtitle: 'Configure your website settings and preferences.' }
+                dashboard: { title: 'Dashboard Overview', subtitle: 'Real-time business insights' },
+                orders: { title: 'Order Management', subtitle: 'View all customer orders' },
+                settings: { title: 'Admin Settings', subtitle: 'Configure your admin panel' }
             };
             
             document.getElementById('pageTitle').textContent = titles[tabName].title;
             document.getElementById('pageSubtitle').textContent = titles[tabName].subtitle;
             
             // Load tab data
-            switch(tabName) {
-                case 'orders':
-                    loadOrdersTable();
-                    break;
-                case 'services':
-                    loadServicesGrid();
-                    break;
-                case 'customers':
-                    loadCustomersTable();
-                    break;
-                case 'payments':
-                    loadPaymentsTable();
-                    break;
-                case 'settings':
-                    loadSettings();
-                    break;
+            if (tabName === 'orders') {
+                loadAllOrders();
             }
         }
 
         // Load Dashboard Data
         function loadDashboardData() {
+            // Get REAL orders from localStorage
+            const orders = JSON.parse(localStorage.getItem('sonipatOrders')) || [];
+            const adminOrders = JSON.parse(localStorage.getItem('sonipatAdminOrders')) || [];
+            
+            // Merge both order sources
+            const allOrders = [...orders, ...adminOrders];
+            
+            // Remove duplicates
+            const uniqueOrders = Array.from(new Map(allOrders.map(order => [order.id, order])).values());
+            
             // Calculate stats
-            const totalOrders = adminData.orders.length;
-            const totalRevenue = adminData.orders.reduce((sum, order) => sum + (order.amount || 0), 0);
-            const pendingOrders = adminData.orders.filter(order => order.status === 'pending').length;
-            const totalCustomers = new Set(adminData.orders.map(order => order.email)).size;
+            const totalOrders = uniqueOrders.length;
+            const totalRevenue = uniqueOrders.reduce((sum, order) => sum + (order.amount || 0), 0);
+            const pendingOrders = uniqueOrders.filter(order => order.status === 'pending').length;
+            const totalCustomers = new Set(uniqueOrders.map(order => order.email)).size;
             
             // Update stats
             document.getElementById('totalOrders').textContent = totalOrders;
@@ -1843,19 +981,25 @@ Sonipat AC Service Team
             document.getElementById('orderNotification').textContent = pendingOrders;
             
             // Load recent orders
-            loadRecentOrders();
-            
-            // Initialize charts
-            initializeCharts();
+            loadRecentOrders(uniqueOrders);
         }
 
         // Load Recent Orders
-        function loadRecentOrders() {
-            const tbody = document.getElementById('recentOrdersTable').querySelector('tbody');
+        function loadRecentOrders(orders) {
+            const tbody = document.getElementById('recentOrdersBody');
+            const noOrdersDiv = document.getElementById('noRecentOrders');
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '';
+                noOrdersDiv.style.display = 'block';
+                return;
+            }
+            
+            noOrdersDiv.style.display = 'none';
             tbody.innerHTML = '';
             
             // Get 5 most recent orders
-            const recentOrders = [...adminData.orders]
+            const recentOrders = [...orders]
                 .sort((a, b) => new Date(b.timestamp || b.date) - new Date(a.timestamp || a.date))
                 .slice(0, 5);
             
@@ -1868,88 +1012,42 @@ Sonipat AC Service Team
                     <td>₹${order.amount || 0}</td>
                     <td>${formatDate(order.date || order.timestamp)}</td>
                     <td><span class="status-badge status-${order.status || 'pending'}">${capitalize(order.status || 'pending')}</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="action-btn view" onclick="viewOrder('${order.id}')"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn edit" onclick="editOrder('${order.id}')"><i class="fas fa-edit"></i></button>
-                        </div>
-                    </td>
+                    <td><span class="status-badge ${order.paymentStatus === 'paid' ? 'status-completed' : 'status-pending'}">${capitalize(order.paymentStatus || 'pending')}</span></td>
                 `;
                 tbody.appendChild(row);
             });
         }
 
-        // Initialize Charts
-        function initializeCharts() {
-            // Revenue Chart
-            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-            const revenueChart = new Chart(revenueCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'Revenue (₹)',
-                        data: [12000, 19000, 15000, 25000, 22000, 30000],
-                        borderColor: '#2563eb',
-                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return '₹' + value;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+        // Load All Orders
+        function loadAllOrders() {
+            const tbody = document.getElementById('ordersBody');
+            const noOrdersDiv = document.getElementById('noOrders');
             
-            // Order Status Chart
-            const statusCtx = document.getElementById('orderStatusChart').getContext('2d');
-            const statusChart = new Chart(statusCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Completed', 'Pending', 'Processing', 'Cancelled'],
-                    datasets: [{
-                        data: [45, 25, 20, 10],
-                        backgroundColor: [
-                            '#10b981',
-                            '#f59e0b',
-                            '#3b82f6',
-                            '#ef4444'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Order Management
-        function loadOrdersTable() {
-            const tbody = document.getElementById('ordersTable').querySelector('tbody');
+            // Get REAL orders from localStorage
+            const orders = JSON.parse(localStorage.getItem('sonipatOrders')) || [];
+            const adminOrders = JSON.parse(localStorage.getItem('sonipatAdminOrders')) || [];
+            
+            // Merge both order sources
+            const allOrders = [...orders, ...adminOrders];
+            
+            // Remove duplicates
+            const uniqueOrders = Array.from(new Map(allOrders.map(order => [order.id, order])).values());
+            
+            if (uniqueOrders.length === 0) {
+                tbody.innerHTML = '';
+                noOrdersDiv.style.display = 'block';
+                return;
+            }
+            
+            noOrdersDiv.style.display = 'none';
             tbody.innerHTML = '';
             
-            adminData.orders.forEach(order => {
+            // Sort by date (newest first)
+            const sortedOrders = uniqueOrders.sort((a, b) => 
+                new Date(b.timestamp || b.date) - new Date(a.timestamp || a.date)
+            );
+            
+            sortedOrders.forEach(order => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${order.id || 'N/A'}</td>
@@ -1959,378 +1057,25 @@ Sonipat AC Service Team
                     <td>₹${order.amount || 0}</td>
                     <td>${formatDate(order.date || order.timestamp)}</td>
                     <td><span class="status-badge status-${order.status || 'pending'}">${capitalize(order.status || 'pending')}</span></td>
-                    <td><span class="status-badge status-${order.paymentStatus || 'pending'}">${capitalize(order.paymentStatus || 'pending')}</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="action-btn view" onclick="viewOrder('${order.id}')"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn edit" onclick="editOrder('${order.id}')"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn delete" onclick="deleteOrder('${order.id}')"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
+                    <td><span class="status-badge ${order.paymentStatus === 'paid' ? 'status-completed' : 'status-pending'}">${capitalize(order.paymentStatus || 'pending')}</span></td>
+                    <td>${order.transactionId || order.razorpay_payment_id || 'N/A'}</td>
                 `;
                 tbody.appendChild(row);
             });
         }
 
-        function addNewOrder() {
-            document.getElementById('modalTitle').textContent = 'Add New Order';
-            document.getElementById('orderForm').reset();
-            document.getElementById('orderId').value = '';
+        // Filter Orders
+        function filterOrders(searchTerm) {
+            const rows = document.querySelectorAll('#ordersBody tr, #recentOrdersBody tr');
             
-            // Populate services dropdown
-            const serviceSelect = document.getElementById('orderService');
-            serviceSelect.innerHTML = '<option value="">Select Service</option>';
-            adminData.services.forEach(service => {
-                const option = document.createElement('option');
-                option.value = service.id;
-                option.textContent = `${service.title} - ₹${service.price}`;
-                serviceSelect.appendChild(option);
-            });
-            
-            // Set default date to today
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('orderDate').value = today;
-            
-            // Show modal
-            document.getElementById('orderModal').classList.add('active');
-        }
-
-        function editOrder(orderId) {
-            const order = adminData.orders.find(o => o.id === orderId);
-            if (!order) return;
-            
-            document.getElementById('modalTitle').textContent = 'Edit Order';
-            document.getElementById('orderForm').reset();
-            
-            // Populate form
-            document.getElementById('orderId').value = order.id;
-            document.getElementById('orderCustomer').value = order.name || '';
-            document.getElementById('orderPhone').value = order.phone || '';
-            document.getElementById('orderEmail').value = order.email || '';
-            document.getElementById('orderAmount').value = order.amount || '';
-            document.getElementById('orderStatus').value = order.status || 'pending';
-            document.getElementById('orderDate').value = order.date || '';
-            document.getElementById('orderTime').value = order.time || '9:00 AM - 12:00 PM';
-            document.getElementById('orderAddress').value = order.address || '';
-            document.getElementById('orderDetails').value = order.acDetails || '';
-            document.getElementById('orderPaymentMethod').value = order.paymentMethod || 'razorpay';
-            document.getElementById('orderPaymentStatus').value = order.paymentStatus || 'pending';
-            document.getElementById('orderNotes').value = order.notes || '';
-            
-            // Populate services dropdown
-            const serviceSelect = document.getElementById('orderService');
-            serviceSelect.innerHTML = '<option value="">Select Service</option>';
-            adminData.services.forEach(service => {
-                const option = document.createElement('option');
-                option.value = service.id;
-                option.textContent = `${service.title} - ₹${service.price}`;
-                if (order.serviceId === service.id) {
-                    option.selected = true;
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
                 }
-                serviceSelect.appendChild(option);
             });
-            
-            // Show modal
-            document.getElementById('orderModal').classList.add('active');
-        }
-
-        function saveOrder() {
-            const form = document.getElementById('orderForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-            
-            const orderId = document.getElementById('orderId').value || 'ORD' + Date.now().toString().substr(-8);
-            const serviceId = document.getElementById('orderService').value;
-            const service = adminData.services.find(s => s.id == serviceId);
-            
-            const order = {
-                id: orderId,
-                name: document.getElementById('orderCustomer').value,
-                phone: document.getElementById('orderPhone').value,
-                email: document.getElementById('orderEmail').value,
-                serviceId: serviceId,
-                serviceName: service ? service.title : document.getElementById('orderService').selectedOptions[0].text,
-                amount: parseInt(document.getElementById('orderAmount').value),
-                status: document.getElementById('orderStatus').value,
-                date: document.getElementById('orderDate').value,
-                time: document.getElementById('orderTime').value,
-                address: document.getElementById('orderAddress').value,
-                acDetails: document.getElementById('orderDetails').value,
-                paymentMethod: document.getElementById('orderPaymentMethod').value,
-                paymentStatus: document.getElementById('orderPaymentStatus').value,
-                notes: document.getElementById('orderNotes').value,
-                timestamp: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            
-            // Check if editing existing order
-            const existingIndex = adminData.orders.findIndex(o => o.id === orderId);
-            if (existingIndex > -1) {
-                adminData.orders[existingIndex] = order;
-                showAlert('success', 'Order updated successfully!');
-            } else {
-                adminData.orders.push(order);
-                showAlert('success', 'Order added successfully!');
-            }
-            
-            // Save to localStorage
-            localStorage.setItem('sonipatOrders', JSON.stringify(adminData.orders));
-            
-            // Send email notification
-            sendOrderEmail(order);
-            
-            // Update UI
-            closeModal();
-            loadOrdersTable();
-            loadDashboardData();
-        }
-
-        function deleteOrder(orderId) {
-            if (confirm('Are you sure you want to delete this order?')) {
-                adminData.orders = adminData.orders.filter(order => order.id !== orderId);
-                localStorage.setItem('sonipatOrders', JSON.stringify(adminData.orders));
-                showAlert('success', 'Order deleted successfully!');
-                loadOrdersTable();
-                loadDashboardData();
-            }
-        }
-
-        // Email Notification
-        function sendOrderEmail(order) {
-            // In production, integrate with EmailJS, SendGrid, or similar service
-            console.log('Sending email notification for order:', order.id);
-            console.log('To:', adminData.settings.email.adminEmail);
-            
-            // You can integrate with:
-            // 1. EmailJS (free for 200 emails/month)
-            // 2. SendGrid (free for 100 emails/day)
-            // 3. SMTP with your own server
-        }
-
-        // Service Management
-        function loadServicesGrid() {
-            const grid = document.getElementById('servicesGrid');
-            grid.innerHTML = '';
-            
-            adminData.services.forEach(service => {
-                const serviceItem = document.createElement('div');
-                serviceItem.className = 'service-item';
-                serviceItem.innerHTML = `
-                    <div class="service-header">
-                        <div>
-                            <div class="service-title">${service.title}</div>
-                            <div class="service-price">₹${service.price} ${service.period || ''}</div>
-                        </div>
-                        <span class="status-badge ${service.status === 'active' ? 'status-completed' : 'status-cancelled'}">
-                            ${service.status === 'active' ? 'Active' : 'Inactive'}
-                        </span>
-                    </div>
-                    <p style="color: var(--gray); margin: 10px 0; font-size: 0.9rem;">${service.description}</p>
-                    <ul class="service-features">
-                        ${service.features ? service.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('') : ''}
-                    </ul>
-                    <div class="service-actions">
-                        <button class="btn btn-sm btn-outline" onclick="editService('${service.id}')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-sm" style="background: var(--danger);" onclick="deleteService('${service.id}')">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(serviceItem);
-            });
-        }
-
-        function addNewService() {
-            document.getElementById('serviceModalTitle').textContent = 'Add New Service';
-            document.getElementById('serviceForm').reset();
-            document.getElementById('serviceId').value = '';
-            document.getElementById('serviceModal').classList.add('active');
-        }
-
-        function editService(serviceId) {
-            const service = adminData.services.find(s => s.id == serviceId);
-            if (!service) return;
-            
-            document.getElementById('serviceModalTitle').textContent = 'Edit Service';
-            document.getElementById('serviceForm').reset();
-            
-            // Populate form
-            document.getElementById('serviceId').value = service.id;
-            document.getElementById('serviceTitle').value = service.title;
-            document.getElementById('servicePrice').value = service.price;
-            document.getElementById('servicePeriod').value = service.period || '/per AC';
-            document.getElementById('serviceImage').value = service.image || '';
-            document.getElementById('serviceDescription').value = service.description;
-            document.getElementById('serviceFeatures').value = service.features ? service.features.join('\n') : '';
-            document.getElementById('serviceOrder').value = service.order || 1;
-            document.getElementById('serviceStatus').value = service.status || 'active';
-            
-            document.getElementById('serviceModal').classList.add('active');
-        }
-
-        function saveService() {
-            const form = document.getElementById('serviceForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-            
-            const serviceId = document.getElementById('serviceId').value || Date.now().toString();
-            const features = document.getElementById('serviceFeatures').value.split('\n').filter(f => f.trim() !== '');
-            
-            const service = {
-                id: serviceId,
-                title: document.getElementById('serviceTitle').value,
-                price: parseInt(document.getElementById('servicePrice').value),
-                period: document.getElementById('servicePeriod').value,
-                image: document.getElementById('serviceImage').value,
-                description: document.getElementById('serviceDescription').value,
-                features: features,
-                order: parseInt(document.getElementById('serviceOrder').value),
-                status: document.getElementById('serviceStatus').value
-            };
-            
-            // Check if editing existing service
-            const existingIndex = adminData.services.findIndex(s => s.id == serviceId);
-            if (existingIndex > -1) {
-                adminData.services[existingIndex] = service;
-                showAlert('success', 'Service updated successfully!');
-            } else {
-                adminData.services.push(service);
-                showAlert('success', 'Service added successfully!');
-            }
-            
-            // Save to localStorage
-            localStorage.setItem('sonipatServices', JSON.stringify(adminData.services));
-            
-            // Also update main website localStorage
-            localStorage.setItem('sonipatServices', JSON.stringify(adminData.services));
-            
-            closeServiceModal();
-            loadServicesGrid();
-        }
-
-        function deleteService(serviceId) {
-            if (confirm('Are you sure you want to delete this service?')) {
-                adminData.services = adminData.services.filter(service => service.id != serviceId);
-                localStorage.setItem('sonipatServices', JSON.stringify(adminData.services));
-                showAlert('success', 'Service deleted successfully!');
-                loadServicesGrid();
-            }
-        }
-
-        // Settings Management
-        function loadSettings() {
-            // General Settings
-            document.getElementById('siteName').value = adminData.settings.site.name;
-            document.getElementById('sitePhone').value = adminData.settings.site.phone;
-            document.getElementById('siteEmail').value = adminData.settings.site.email;
-            document.getElementById('siteAddress').value = adminData.settings.site.address;
-            document.getElementById('siteHours').value = adminData.settings.site.hours;
-            document.getElementById('siteFooter').value = adminData.settings.site.footer;
-            
-            // Email Settings
-            document.getElementById('adminEmail').value = adminData.settings.email.adminEmail;
-            document.getElementById('emailPrefix').value = adminData.settings.email.prefix;
-            document.getElementById('orderTemplate').value = adminData.settings.email.template;
-            
-            // Payment Settings
-            document.getElementById('razorpayKey').value = adminData.settings.payment.razorpayKey;
-            document.getElementById('paymentCurrency').value = adminData.settings.payment.currency;
-            document.getElementById('paymentTimeout').value = adminData.settings.payment.timeout;
-            
-            // Backup Settings
-            document.getElementById('backupFrequency').value = adminData.settings.backup.frequency;
-            document.getElementById('backupRetention').value = adminData.settings.backup.retention;
-        }
-
-        function saveGeneralSettings() {
-            adminData.settings.site = {
-                name: document.getElementById('siteName').value,
-                phone: document.getElementById('sitePhone').value,
-                email: document.getElementById('siteEmail').value,
-                address: document.getElementById('siteAddress').value,
-                hours: document.getElementById('siteHours').value,
-                footer: document.getElementById('siteFooter').value
-            };
-            
-            // Also update main website localStorage
-            localStorage.setItem('sonipatContent', JSON.stringify({
-                hero: JSON.parse(localStorage.getItem('sonipatContent')).hero || {},
-                about: JSON.parse(localStorage.getItem('sonipatContent')).about || {},
-                contact: adminData.settings.site
-            }));
-            
-            saveSettings();
-            showAlert('success', 'General settings saved successfully!');
-        }
-
-        function saveEmailSettings() {
-            adminData.settings.email = {
-                adminEmail: document.getElementById('adminEmail').value,
-                prefix: document.getElementById('emailPrefix').value,
-                template: document.getElementById('orderTemplate').value
-            };
-            
-            saveSettings();
-            showAlert('success', 'Email settings saved successfully!');
-        }
-
-        function savePaymentSettings() {
-            adminData.settings.payment = {
-                razorpayKey: document.getElementById('razorpayKey').value,
-                currency: document.getElementById('paymentCurrency').value,
-                timeout: parseInt(document.getElementById('paymentTimeout').value)
-            };
-            
-            saveSettings();
-            showAlert('success', 'Payment settings saved successfully!');
-        }
-
-        function saveBackupSettings() {
-            adminData.settings.backup = {
-                frequency: document.getElementById('backupFrequency').value,
-                retention: parseInt(document.getElementById('backupRetention').value)
-            };
-            
-            saveSettings();
-            showAlert('success', 'Backup settings saved successfully!');
-        }
-
-        function saveSettings() {
-            localStorage.setItem('sonipatAdminSettings', JSON.stringify(adminData.settings));
-        }
-
-        // Backup Functions
-        function createBackup() {
-            const backupData = {
-                timestamp: new Date().toISOString(),
-                data: {
-                    orders: adminData.orders,
-                    services: adminData.services,
-                    customers: adminData.customers,
-                    settings: adminData.settings
-                }
-            };
-            
-            adminData.backups.push(backupData);
-            localStorage.setItem('sonipatBackups', JSON.stringify(adminData.backups));
-            
-            // Download backup file
-            const dataStr = JSON.stringify(backupData, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            const exportFileDefaultName = `sonipat-backup-${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showAlert('success', 'Backup created and downloaded successfully!');
         }
 
         // Utility Functions
@@ -2348,6 +1093,55 @@ Sonipat AC Service Team
             return str.charAt(0).toUpperCase() + str.slice(1);
         }
 
+        // Refresh Functions
+        function refreshDashboard() {
+            loadDashboardData();
+            showAlert('success', 'Dashboard refreshed!');
+        }
+
+        function refreshOrders() {
+            loadAllOrders();
+            showAlert('success', 'Orders refreshed!');
+        }
+
+        function viewAllOrders() {
+            switchTab('orders');
+        }
+
+        function exportOrders() {
+            const orders = JSON.parse(localStorage.getItem('sonipatOrders')) || [];
+            const adminOrders = JSON.parse(localStorage.getItem('sonipatAdminOrders')) || [];
+            const allOrders = [...orders, ...adminOrders];
+            
+            if (allOrders.length === 0) {
+                showAlert('error', 'No orders to export!');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(allOrders, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportFileDefaultName = `sonipat-orders-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showAlert('success', 'Orders exported successfully!');
+        }
+
+        function saveSettings() {
+            const newPassword = document.getElementById('adminPassword').value;
+            if (newPassword) {
+                // In production, hash the password before storing
+                showAlert('success', 'Settings saved! (Note: Password change requires backend implementation)');
+            } else {
+                showAlert('success', 'Settings saved!');
+            }
+            
+            document.getElementById('adminPassword').value = '';
+        }
+
         function showAlert(type, message) {
             // Create alert element
             const alert = document.createElement('div');
@@ -2355,7 +1149,7 @@ Sonipat AC Service Team
             alert.textContent = message;
             alert.style.cssText = `
                 position: fixed;
-                top: 20px;
+                top: 50px;
                 right: 20px;
                 z-index: 9999;
                 display: block !important;
@@ -2370,120 +1164,6 @@ Sonipat AC Service Team
                     document.body.removeChild(alert);
                 }, 300);
             }, 3000);
-        }
-
-        function closeModal() {
-            document.getElementById('orderModal').classList.remove('active');
-        }
-
-        function closeServiceModal() {
-            document.getElementById('serviceModal').classList.remove('active');
-        }
-
-        function closeNotificationModal() {
-            document.getElementById('notificationModal').classList.remove('active');
-        }
-
-        function switchSettingsTab(settingName) {
-            // Hide all setting tabs
-            document.querySelectorAll('#settingsTab .tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('#settingsTab .tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(settingName + 'Settings').classList.add('active');
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
-        }
-
-        function filterOrders(status) {
-            // Implementation for filtering orders by status
-            console.log('Filter orders by:', status);
-        }
-
-        // Export Data
-        function exportData() {
-            const exportData = {
-                orders: adminData.orders,
-                services: adminData.services,
-                customers: adminData.customers,
-                settings: adminData.settings,
-                exportDate: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(exportData, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            const exportFileDefaultName = `sonipat-export-${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showAlert('success', 'Data exported successfully!');
-        }
-
-        // Initialize with some demo data if empty
-        function loadInitialData() {
-            if (adminData.orders.length === 0) {
-                // Add some demo orders
-                adminData.orders = [
-                    {
-                        id: 'ORD001',
-                        name: 'Rahul Sharma',
-                        phone: '9876543210',
-                        email: 'rahul@example.com',
-                        serviceName: 'AC General Service',
-                        amount: 499,
-                        status: 'completed',
-                        date: '2024-03-15',
-                        time: '10:00 AM - 1:00 PM',
-                        paymentStatus: 'paid',
-                        timestamp: '2024-03-10T10:30:00Z'
-                    },
-                    {
-                        id: 'ORD002',
-                        name: 'Priya Singh',
-                        phone: '8765432109',
-                        email: 'priya@example.com',
-                        serviceName: 'AC Repair',
-                        amount: 799,
-                        status: 'processing',
-                        date: '2024-03-16',
-                        time: '2:00 PM - 5:00 PM',
-                        paymentStatus: 'paid',
-                        timestamp: '2024-03-11T14:20:00Z'
-                    },
-                    {
-                        id: 'ORD003',
-                        name: 'Amit Kumar',
-                        phone: '7654321098',
-                        email: 'amit@example.com',
-                        serviceName: 'AC Installation',
-                        amount: 1299,
-                        status: 'pending',
-                        date: '2024-03-17',
-                        time: '11:00 AM - 2:00 PM',
-                        paymentStatus: 'pending',
-                        timestamp: '2024-03-12T09:15:00Z'
-                    }
-                ];
-                localStorage.setItem('sonipatOrders', JSON.stringify(adminData.orders));
-            }
-            
-            if (adminData.services.length === 0) {
-                // Services should be loaded from main website
-                const mainServices = JSON.parse(localStorage.getItem('sonipatServices')) || [];
-                if (mainServices.length > 0) {
-                    adminData.services = mainServices;
-                }
-            }
         }
 
         // Add CSS for animations
@@ -2509,6 +1189,15 @@ Sonipat AC Service Team
                     opacity: 0;
                     transform: translateX(100px);
                 }
+            }
+            
+            .notification-badge {
+                background: var(--danger);
+                color: white;
+                font-size: 0.7rem;
+                padding: 2px 6px;
+                border-radius: 10px;
+                margin-left: auto;
             }
         `;
         document.head.appendChild(style);
