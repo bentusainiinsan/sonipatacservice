@@ -31,74 +31,1112 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     
     <style>
-        /* ALL YOUR EXISTING CSS STAYS HERE - I'M NOT DUPLICATING IT TO SAVE SPACE */
-        /* You already have all the CSS from your original file */
-        
-        /* Add these Admin Panel styles at the end of your existing CSS */
-        
-        /* Admin Access Button */
-        #adminAccess {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            z-index: 9999;
-            transition: all 0.3s;
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
         
-        #adminAccess button {
-            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --razorpay: #528FF0;
+            --border-radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            width: 48px;
+            height: 48px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .logo-text span {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+        
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
             font-weight: 500;
-            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
-            transition: all 0.3s;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            left: 0;
+            bottom: 0;
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        /* Contact Header */
+        .contact-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .phone-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .phone-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .play-store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .play-store-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: #1e293b;
+        }
+        
+        .play-store-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        
+        .play-store-text span:first-child {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+        
+        .play-store-text span:last-child {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        /* Hero Slider */
+        .hero {
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 80px;
+        }
+        
+        .slides {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide {
+            width: 25%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 0 80px;
+            max-width: 700px;
+        }
+        
+        .slide-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #0d9c6d);
+        }
+        
+        .btn-razorpay {
+            background: linear-gradient(135deg, var(--razorpay), #3a7bd5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        /* Slider Controls */
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+        
+        .control {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .control.active {
+            background-color: white;
+            transform: scale(1.2);
+            border-color: var(--accent);
+        }
+        
+        /* Background Images */
+        .slide-1 {
+            background-image: url('https://images.unsplash.com/photo-162179148c5d60c4ab76b8ea8e4458e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        .slide-2 {
+            background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        .slide-3 {
+            background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        .slide-4 {
+            background-image: url('https://images.unsplash.com/photo-1599599810769-bcde5a160d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        /* Main Content Sections */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* Services Section */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .service-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .service-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        }
+        
+        .service-content {
+            padding: 30px;
+        }
+        
+        .service-content h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .service-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+        
+        .features {
+            list-style: none;
+            margin: 25px 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .features li i {
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .service-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f7ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), transparent);
+            border-radius: 50%;
+        }
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-content h3 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            color: var(--gray);
+            font-size: 1.05rem;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .about-feature i {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .about-feature h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .about-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(37, 99, 235, 0.2), transparent);
+            z-index: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-light);
+            font-weight: 600;
+        }
+        
+        .contact-details {
+            list-style: none;
+        }
+        
+        .contact-details li {
+            padding: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .contact-details li:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-details i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            width: 24px;
+            margin-top: 3px;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--secondary), #1a202c);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .footer-logo p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .footer-links h3,
+        .footer-services h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            color: white;
+        }
+        
+        .footer-links h3:after,
+        .footer-services h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+        
+        .footer-links ul,
+        .footer-services ul {
+            list-style: none;
+        }
+        
+        .footer-links li,
+        .footer-services li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a,
+        .footer-services a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
-        #adminAccess button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(26, 115, 232, 0.4);
+        .footer-links a:hover,
+        .footer-services a:hover {
+            color: white;
+            transform: translateX(5px);
         }
         
-        /* Admin Panel Overlay */
-        .admin-overlay {
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .whatsapp-text {
+            position: absolute;
+            right: 80px;
+            background: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+            box-shadow: var(--shadow);
+        }
+        
+        .whatsapp-float:hover .whatsapp-text {
+            opacity: 1;
+            right: 90px;
+        }
+        
+        /* Payment Modal Styles */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
         }
         
-        .admin-overlay.active {
-            display: flex;
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
         
-        /* Admin Panel */
-        .admin-panel {
+        .payment-modal {
             background-color: white;
-            border-radius: 15px;
+            border-radius: var(--border-radius);
             width: 90%;
             max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.3s ease;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-20px);
+            transition: var(--transition);
+            position: relative;
         }
         
-        @keyframes slideIn {
+        .modal-overlay.active .payment-modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        
+        .modal-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            background: var(--gray-light);
+            color: var(--danger);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Payment Summary */
+        .payment-summary {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-light);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-item.total {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 2px solid var(--gray-light);
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            text-align: center;
+            padding: 50px 40px;
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            color: var(--success);
+            margin-bottom: 25px;
+            background: rgba(16, 185, 129, 0.1);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+        
+        .success-modal h3 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .success-modal p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        /* Admin Link Button */
+        .admin-access-btn {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 99;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .admin-access-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+            }
+            
+            .hero {
+                height: 500px;
+            }
+            
+            .slide-content h2 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px 0;
+            }
+            
+            .hero {
+                margin-top: 140px;
+                height: 450px;
+            }
+            
+            .slide-content {
+                padding: 0 40px;
+            }
+            
+            .slide-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .contact-header {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .hero {
+                height: 400px;
+                margin-top: 160px;
+            }
+            
+            .slide-content h2 {
+                font-size: 2rem;
+            }
+            
+            .slide-content p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-buttons {
+                flex-direction: column;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .admin-access-btn {
+                bottom: 90px;
+                right: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 350px;
+            }
+            
+            .slide-content {
+                padding: 0 25px;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .payment-modal {
+                padding: 25px;
+                width: 95%;
+            }
+            
+            .modal-header h3 {
+                font-size: 1.5rem;
+            }
+            
+            .success-modal {
+                padding: 30px 20px;
+            }
+            
+            .success-modal h3 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -106,252 +1144,40 @@
             }
         }
         
-        .admin-header {
-            background: linear-gradient(135deg, #1a73e8, #0d47a1);
-            color: white;
-            padding: 20px;
-            border-radius: 15px 15px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .admin-header h3 {
-            margin: 0;
-            font-size: 1.3rem;
-        }
-        
-        .close-admin {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Loading Animation */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
             border-radius: 50%;
-            transition: background 0.3s;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
         
-        .close-admin:hover {
-            background: rgba(255, 255, 255, 0.2);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        .admin-content {
-            padding: 25px;
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
         }
         
-        .admin-tabs {
-            display: flex;
-            border-bottom: 2px solid #eee;
-            margin-bottom: 20px;
-        }
-        
-        .admin-tab {
-            padding: 10px 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            color: #666;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -2px;
-            transition: all 0.3s;
-        }
-        
-        .admin-tab.active {
-            color: #1a73e8;
-            border-bottom: 2px solid #1a73e8;
-        }
-        
-        .admin-form {
-            display: none;
-        }
-        
-        .admin-form.active {
-            display: block;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-        }
-        
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 0.95rem;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #1a73e8;
-            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
-        }
-        
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .admin-btn {
-            background: #1a73e8;
+        .badge-new {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 500;
-            width: 100%;
-            transition: background 0.3s;
         }
         
-        .admin-btn:hover {
-            background: #0d47a1;
-        }
-        
-        .admin-btn-secondary {
-            background: #f0f7ff;
-            color: #1a73e8;
-            border: 1px solid #1a73e8;
-        }
-        
-        .admin-btn-secondary:hover {
-            background: #e3f2fd;
-        }
-        
-        .price-input-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .price-input-group input {
-            flex: 1;
-        }
-        
-        .price-input-group span {
-            font-weight: 500;
-            color: #666;
-            white-space: nowrap;
-        }
-        
-        .status-message {
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            display: none;
-        }
-        
-        .status-message.success {
-            background: #e7f7ed;
-            color: #0d6832;
-            border: 1px solid #a3e9c4;
-            display: block;
-        }
-        
-        .status-message.error {
-            background: #fdeded;
-            color: #c62828;
-            border: 1px solid #f5c6c6;
-            display: block;
-        }
-        
-        .admin-login {
-            text-align: center;
-        }
-        
-        .admin-login h4 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .admin-login input {
-            margin-bottom: 15px;
-        }
-        
-        .service-feature {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .service-feature input {
-            flex: 1;
-        }
-        
-        .remove-feature {
-            background: #ff4444;
+        .badge-popular {
+            background: linear-gradient(135deg, var(--success), #0d9c6d);
             color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .add-feature {
-            background: #34a853;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        
-        /* Responsive Admin Panel */
-        @media (max-width: 768px) {
-            .admin-panel {
-                width: 95%;
-                margin: 10px;
-            }
-            
-            #adminAccess {
-                bottom: 80px;
-                right: 15px;
-            }
-            
-            #adminAccess button {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .admin-content {
-                padding: 15px;
-            }
-            
-            .admin-tabs {
-                flex-direction: column;
-            }
-            
-            .admin-tab {
-                text-align: left;
-                border-bottom: 1px solid #eee;
-                border-radius: 0;
-            }
         }
     </style>
 </head>
@@ -382,11 +1208,11 @@
                 <a href="tel:8816014071" class="phone-btn">
                     <i class="fas fa-phone-alt"></i> 8816014071
                 </a>
-                <a href="https://play.google.com/store/apps" class="play-store-btn" target="_blank">
-                    <i class="fab fa-google-play"></i>
+                <a href="admin.html" class="play-store-btn" target="_blank">
+                    <i class="fas fa-cog"></i>
                     <div class="play-store-text">
-                        <span>GET IT ON</span>
-                        <span>Google Play</span>
+                        <span>ADMIN</span>
+                        <span>Dashboard</span>
                     </div>
                 </a>
             </div>
@@ -442,7 +1268,7 @@
             </div>
             
             <div class="services-container">
-                <!-- Service cards will be dynamically generated by JavaScript -->
+                <!-- Services will be loaded by JavaScript -->
             </div>
         </div>
     </section>
@@ -489,7 +1315,7 @@
                 </div>
                 
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="AC Service Technician">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AC Service Technician">
                 </div>
             </div>
         </div>
@@ -579,12 +1405,12 @@
                 <div class="footer-logo">
                     <h2 id="footerTitle">Sonipat AC Service</h2>
                     <p id="footerDesc">Professional AC repair, installation, and maintenance services in Sonipat. Your comfort is our priority.</p>
-                    <div style="margin-top: 15px;">
-                        <a href="https://play.google.com/store/apps" class="play-store-btn" target="_blank">
-                            <i class="fab fa-google-play"></i>
+                    <div style="margin-top: 20px;">
+                        <a href="admin.html" class="play-store-btn" target="_blank">
+                            <i class="fas fa-cog"></i>
                             <div class="play-store-text">
-                                <span>GET IT ON</span>
-                                <span>Google Play</span>
+                                <span>ACCESS</span>
+                                <span>Admin Panel</span>
                             </div>
                         </a>
                     </div>
@@ -593,28 +1419,28 @@
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="tel:8816014071">Emergency Service</a></li>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="tel:8816014071"><i class="fas fa-chevron-right"></i> Emergency Service</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-services">
                     <h3>Our Services</h3>
                     <ul>
-                        <li><a href="#services">AC Repair</a></li>
-                        <li><a href="#services">AC Installation</a></li>
-                        <li><a href="#services">AC Maintenance</a></li>
-                        <li><a href="#services">Gas Charging</a></li>
-                        <li><a href="#services">Annual Maintenance</a></li>
+                        <li><a href="#services"><i class="fas fa-tools"></i> AC Repair</a></li>
+                        <li><a href="#services"><i class="fas fa-bolt"></i> AC Installation</a></li>
+                        <li><a href="#services"><i class="fas fa-wrench"></i> AC Maintenance</a></li>
+                        <li><a href="#services"><i class="fas fa-gas-pump"></i> Gas Charging</a></li>
+                        <li><a href="#services"><i class="fas fa-calendar-check"></i> Annual Maintenance</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; <span id="copyrightYear">2023</span> Sonipat AC Service. All Rights Reserved. | Website Designed for Sonipat AC Service | Payments powered by Razorpay</p>
+                <p>&copy; <span id="copyrightYear">2024</span> Sonipat AC Service. All Rights Reserved. | Website Designed for Sonipat AC Service | Payments powered by Razorpay</p>
             </div>
         </div>
     </footer>
@@ -724,247 +1550,99 @@
     </a>
 
     <!-- Admin Access Button -->
-    <div id="adminAccess">
-        <button onclick="openAdminPanel()">
-            <i class="fas fa-cog"></i> Admin
-        </button>
-    </div>
-
-    <!-- Admin Panel Overlay -->
-    <div class="admin-overlay" id="adminOverlay">
-        <div class="admin-panel">
-            <div class="admin-header">
-                <h3>Website Admin Panel</h3>
-                <button class="close-admin" onclick="closeAdminPanel()">×</button>
-            </div>
-            
-            <div class="admin-content">
-                <div id="adminLoginForm">
-                    <div class="admin-login">
-                        <h4>Admin Login</h4>
-                        <p>Enter password to access admin panel</p>
-                        <input type="password" id="adminPassword" placeholder="Enter admin password">
-                        <div class="status-message" id="loginStatus"></div>
-                        <button class="admin-btn" onclick="adminLogin()">Login</button>
-                        <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
-                            <i class="fas fa-info-circle"></i> Default password: admin123
-                        </p>
-                    </div>
-                </div>
-                
-                <div id="adminEditor" style="display: none;">
-                    <div class="admin-tabs">
-                        <button class="admin-tab active" onclick="showAdminTab('hero')">Hero Section</button>
-                        <button class="admin-tab" onclick="showAdminTab('services')">Services</button>
-                        <button class="admin-tab" onclick="showAdminTab('contact')">Contact Info</button>
-                        <button class="admin-tab" onclick="showAdminTab('about')">About Us</button>
-                    </div>
-                    
-                    <div id="adminHeroForm" class="admin-form active">
-                        <div class="form-group">
-                            <label>Hero Slide 1 Title</label>
-                            <input type="text" id="editHeroTitle1" placeholder="Enter slide 1 title">
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Slide 1 Description</label>
-                            <textarea id="editHeroDesc1" placeholder="Enter slide 1 description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Slide 2 Title</label>
-                            <input type="text" id="editHeroTitle2" placeholder="Enter slide 2 title">
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Slide 2 Description</label>
-                            <textarea id="editHeroDesc2" placeholder="Enter slide 2 description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Slide 3 Title</label>
-                            <input type="text" id="editHeroTitle3" placeholder="Enter slide 3 title">
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Slide 3 Description</label>
-                            <textarea id="editHeroDesc3" placeholder="Enter slide 3 description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Slide 4 Title</label>
-                            <input type="text" id="editHeroTitle4" placeholder="Enter slide 4 title">
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Slide 4 Description</label>
-                            <textarea id="editHeroDesc4" placeholder="Enter slide 4 description"></textarea>
-                        </div>
-                        <button class="admin-btn" onclick="saveHeroContent()">Save Hero Section</button>
-                    </div>
-                    
-                    <div id="adminServicesForm" class="admin-form">
-                        <div id="servicesEditor">
-                            <!-- Services will be loaded here -->
-                        </div>
-                        <button class="admin-btn" onclick="saveServices()">Save All Services</button>
-                    </div>
-                    
-                    <div id="adminContactForm" class="admin-form">
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" id="editCompanyName" placeholder="Enter company name">
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea id="editCompanyAddress" placeholder="Enter company address"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" id="editCompanyPhone" placeholder="Enter phone number">
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" id="editCompanyEmail" placeholder="Enter email address">
-                        </div>
-                        <div class="form-group">
-                            <label>Business Hours</label>
-                            <textarea id="editBusinessHours" placeholder="Enter business hours"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Footer Title</label>
-                            <input type="text" id="editFooterTitle" placeholder="Enter footer title">
-                        </div>
-                        <div class="form-group">
-                            <label>Footer Description</label>
-                            <textarea id="editFooterDesc" placeholder="Enter footer description"></textarea>
-                        </div>
-                        <button class="admin-btn" onclick="saveContactInfo()">Save Contact Info</button>
-                    </div>
-                    
-                    <div id="adminAboutForm" class="admin-form">
-                        <div class="form-group">
-                            <label>About Us Title</label>
-                            <input type="text" id="editAboutTitle" placeholder="Enter about us title">
-                        </div>
-                        <div class="form-group">
-                            <label>About Us Description 1</label>
-                            <textarea id="editAboutDesc1" placeholder="Enter first paragraph"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>About Us Description 2</label>
-                            <textarea id="editAboutDesc2" placeholder="Enter second paragraph"></textarea>
-                        </div>
-                        <button class="admin-btn" onclick="saveAboutContent()">Save About Us</button>
-                    </div>
-                    
-                    <div class="status-message" id="saveStatus"></div>
-                    
-                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-                        <button class="admin-btn admin-btn-secondary" onclick="exportContent()">
-                            <i class="fas fa-download"></i> Export Content
-                        </button>
-                        <button class="admin-btn admin-btn-secondary" onclick="resetToDefault()" style="margin-top: 10px;">
-                            <i class="fas fa-undo"></i> Reset to Default
-                        </button>
-                        <button class="admin-btn admin-btn-secondary" onclick="adminLogout()" style="margin-top: 10px; background: #ff4444;">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <a href="admin.html" class="admin-access-btn" target="_blank">
+        <i class="fas fa-cog"></i>
+    </a>
 
     <script>
+        // Website Data Storage
+        const websiteData = {
+            content: JSON.parse(localStorage.getItem('sonipatContent')) || {
+                hero: {
+                    title1: "Professional AC Repair Services",
+                    desc1: "Fast and reliable AC repair services in Sonipat. Our expert technicians are available 24/7 for emergency repairs.",
+                    title2: "AC Installation & Maintenance",
+                    desc2: "Professional installation of all AC brands and regular maintenance plans to keep your AC running efficiently.",
+                    title3: "Affordable Service Plans",
+                    desc3: "Get the best value with our affordable service packages. Quality service at reasonable prices.",
+                    title4: "Secure Online Payments",
+                    desc4: "Book and pay for AC services securely online using Razorpay. Multiple payment options available."
+                },
+                about: {
+                    title: "Why Choose Sonipat AC Service?",
+                    desc1: "With over 10 years of experience serving Sonipat and surrounding areas, we have established ourselves as the most trusted AC service provider in the region.",
+                    desc2: "Our team of certified technicians is trained to handle all major AC brands and models, ensuring your air conditioner receives the best care possible."
+                },
+                contact: {
+                    companyName: "Sonipat AC Service",
+                    address: "128/1, Near Baba Dham Mandir, Sonipat, Haryana",
+                    phone: "8816014071",
+                    email: "care@sonipathomeservice.com",
+                    hours: "Monday - Sunday: 8:00 AM - 9:00 PM\nEmergency Service: 24/7 Available",
+                    footerTitle: "Sonipat AC Service",
+                    footerDesc: "Professional AC repair, installation, and maintenance services in Sonipat. Your comfort is our priority."
+                }
+            },
+            services: JSON.parse(localStorage.getItem('sonipatServices')) || [
+                {
+                    id: 1,
+                    title: "AC General Service",
+                    description: "Complete AC servicing including cleaning, checking coolant levels, and overall performance check.",
+                    price: 499,
+                    period: "/per AC",
+                    features: ["Full AC Cleaning", "Coolant Pressure Check", "Filter Cleaning", "Performance Testing", "30-Day Service Warranty"],
+                    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                },
+                {
+                    id: 2,
+                    title: "AC Repair",
+                    description: "Professional repair of all AC issues including cooling problems, water leakage, and electrical faults.",
+                    price: 799,
+                    period: "/starting",
+                    features: ["Fault Diagnosis", "Spare Parts Replacement", "Cooling Issue Fix", "Electrical Repair", "90-Day Warranty on Repairs"],
+                    image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                },
+                {
+                    id: 3,
+                    title: "AC Installation",
+                    description: "Professional installation of new AC units with proper electrical wiring and testing.",
+                    price: 1299,
+                    period: "/per AC",
+                    features: ["New AC Installation", "Electrical Wiring", "Coolant Charging", "Performance Testing", "Installation Warranty"],
+                    image: "https://images.unsplash.com/photo-162179148c5d60c4ab76b8ea8e4458e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                },
+                {
+                    id: 4,
+                    title: "Gas Charging",
+                    description: "Complete gas charging service for AC units with leakage checking and sealing.",
+                    price: 999,
+                    period: "/per AC",
+                    features: ["Gas Leakage Check", "Complete Gas Charging", "Leakage Sealing", "Pressure Testing", "30-Day Warranty"],
+                    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                },
+                {
+                    id: 5,
+                    title: "Annual Maintenance Contract",
+                    description: "Year-round AC maintenance with regular service visits and priority support.",
+                    price: 2999,
+                    period: "/year",
+                    features: ["4 Services/Year", "Priority Support", "20% Discount on Spares", "Emergency Service", "Comprehensive Coverage"],
+                    image: "https://images.unsplash.com/photo-1523474438810-bc3515112ff6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                },
+                {
+                    id: 6,
+                    title: "AC Disassembly & Cleaning",
+                    description: "Complete disassembly, deep cleaning, and reassembly of your AC unit.",
+                    price: 899,
+                    period: "/per AC",
+                    features: ["Complete Disassembly", "Deep Cleaning", "Bacterial Treatment", "Reassembly & Testing", "60-Day Warranty"],
+                    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                }
+            ]
+        };
+
         // Razorpay Configuration
         const RAZORPAY_KEY_ID = 'rzp_live_RmOsa8eNZ7a0zz';
-        
-        // Default Services Data
-        const defaultServices = [
-            {
-                id: 1,
-                title: "AC General Service",
-                description: "Complete AC servicing including cleaning, checking coolant levels, and overall performance check.",
-                price: 499,
-                displayPrice: "₹499",
-                period: "/per AC",
-                features: ["Full AC Cleaning", "Coolant Pressure Check", "Filter Cleaning", "Performance Testing", "30-Day Service Warranty"],
-                image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            },
-            {
-                id: 2,
-                title: "AC Repair",
-                description: "Professional repair of all AC issues including cooling problems, water leakage, and electrical faults.",
-                price: 799,
-                displayPrice: "₹799",
-                period: "/starting",
-                features: ["Fault Diagnosis", "Spare Parts Replacement", "Cooling Issue Fix", "Electrical Repair", "90-Day Warranty on Repairs"],
-                image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            },
-            {
-                id: 3,
-                title: "AC Installation",
-                description: "Professional installation of new AC units with proper electrical wiring and testing.",
-                price: 1299,
-                displayPrice: "₹1299",
-                period: "/per AC",
-                features: ["New AC Installation", "Electrical Wiring", "Coolant Charging", "Performance Testing", "Installation Warranty"],
-                image: "https://images.unsplash.com/photo-162179148c5d60c4ab76b8ea8e4458e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            },
-            {
-                id: 4,
-                title: "Gas Charging",
-                description: "Complete gas charging service for AC units with leakage checking and sealing.",
-                price: 999,
-                displayPrice: "₹999",
-                period: "/per AC",
-                features: ["Gas Leakage Check", "Complete Gas Charging", "Leakage Sealing", "Pressure Testing", "30-Day Warranty"],
-                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            },
-            {
-                id: 5,
-                title: "Annual Maintenance Contract",
-                description: "Year-round AC maintenance with regular service visits and priority support.",
-                price: 2999,
-                displayPrice: "₹2999",
-                period: "/year",
-                features: ["4 Services/Year", "Priority Support", "20% Discount on Spares", "Emergency Service", "Comprehensive Coverage"],
-                image: "https://images.unsplash.com/photo-1523474438810-bc3515112ff6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            },
-            {
-                id: 6,
-                title: "AC Disassembly & Cleaning",
-                description: "Complete disassembly, deep cleaning, and reassembly of your AC unit.",
-                price: 899,
-                displayPrice: "₹899",
-                period: "/per AC",
-                features: ["Complete Disassembly", "Deep Cleaning", "Bacterial Treatment", "Reassembly & Testing", "60-Day Warranty"],
-                image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-            }
-        ];
-
-        // Load saved content or use defaults
-        let services = JSON.parse(localStorage.getItem('sonipatServices')) || defaultServices;
-        let websiteContent = JSON.parse(localStorage.getItem('sonipatContent')) || {
-            hero: {
-                title1: "Professional AC Repair Services",
-                desc1: "Fast and reliable AC repair services in Sonipat. Our expert technicians are available 24/7 for emergency repairs.",
-                title2: "AC Installation & Maintenance",
-                desc2: "Professional installation of all AC brands and regular maintenance plans to keep your AC running efficiently.",
-                title3: "Affordable Service Plans",
-                desc3: "Get the best value with our affordable service packages. Quality service at reasonable prices.",
-                title4: "Secure Online Payments",
-                desc4: "Book and pay for AC services securely online using Razorpay. Multiple payment options available."
-            },
-            about: {
-                title: "Why Choose Sonipat AC Service?",
-                desc1: "With over 10 years of experience serving Sonipat and surrounding areas, we have established ourselves as the most trusted AC service provider in the region.",
-                desc2: "Our team of certified technicians is trained to handle all major AC brands and models, ensuring your air conditioner receives the best care possible."
-            },
-            contact: {
-                companyName: "Sonipat AC Service",
-                address: "128/1, Near Baba Dham Mandir, Sonipat, Haryana",
-                phone: "8816014071",
-                email: "care@sonipathomeservice.com",
-                hours: "Monday - Sunday: 8:00 AM - 9:00 PM\nEmergency Service: 24/7 Available",
-                footerTitle: "Sonipat AC Service",
-                footerDesc: "Professional AC repair, installation, and maintenance services in Sonipat. Your comfort is our priority."
-            }
-        };
 
         // DOM Elements
         const slidesContainer = document.querySelector('.slides');
@@ -972,145 +1650,70 @@
         const servicesContainer = document.querySelector('.services-container');
         const paymentModal = document.getElementById('paymentModal');
         const successModal = document.getElementById('successModal');
-        const paymentForm = document.getElementById('paymentForm');
-        const adminOverlay = document.getElementById('adminOverlay');
-        const adminLoginForm = document.getElementById('adminLoginForm');
-        const adminEditor = document.getElementById('adminEditor');
 
         // Current selected service for payment
-        let currentSelectedService = services[0];
-        let isAdminLoggedIn = localStorage.getItem('sonipatAdminLoggedIn') === 'true';
+        let currentSelectedService = websiteData.services[0];
 
-        // Initialize website with saved content
-        function initializeWebsite() {
-            // Set hero content
-            document.getElementById('heroTitle1').textContent = websiteContent.hero.title1;
-            document.getElementById('heroDesc1').textContent = websiteContent.hero.desc1;
-            document.getElementById('heroTitle2').textContent = websiteContent.hero.title2;
-            document.getElementById('heroDesc2').textContent = websiteContent.hero.desc2;
-            document.getElementById('heroTitle3').textContent = websiteContent.hero.title3;
-            document.getElementById('heroDesc3').textContent = websiteContent.hero.desc3;
-            document.getElementById('heroTitle4').textContent = websiteContent.hero.title4;
-            document.getElementById('heroDesc4').textContent = websiteContent.hero.desc4;
-            
-            // Set about content
-            document.getElementById('aboutTitle').textContent = websiteContent.about.title;
-            document.getElementById('aboutDesc1').textContent = websiteContent.about.desc1;
-            document.getElementById('aboutDesc2').textContent = websiteContent.about.desc2;
-            
-            // Set contact content
-            document.getElementById('companyName').textContent = websiteContent.contact.companyName;
-            document.getElementById('companyAddress').textContent = websiteContent.contact.address;
-            document.getElementById('companyPhone').textContent = websiteContent.contact.phone;
-            document.getElementById('companyPhone').href = `tel:${websiteContent.contact.phone}`;
-            document.getElementById('companyEmail').textContent = websiteContent.contact.email;
-            document.getElementById('companyEmail').href = `mailto:${websiteContent.contact.email}`;
-            document.getElementById('businessHours').textContent = websiteContent.contact.hours;
-            document.getElementById('footerTitle').textContent = websiteContent.contact.footerTitle;
-            document.getElementById('footerDesc').textContent = websiteContent.contact.footerDesc;
-            
-            // Set copyright year
-            document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-            
-            // Render services
+        // Initialize Website
+        function initWebsite() {
+            updateContent();
             renderServices();
+            initSlider();
+            setCopyrightYear();
             
-            // Update phone buttons
-            document.querySelectorAll('.phone-btn').forEach(btn => {
-                btn.textContent = websiteContent.contact.phone;
-                btn.href = `tel:${websiteContent.contact.phone}`;
-            });
-        }
-
-        // Slider Functionality
-        let currentSlide = 0;
-        const totalSlides = 4;
-
-        function showSlide(index) {
-            if (index >= totalSlides) index = 0;
-            if (index < 0) index = totalSlides - 1;
-            
-            currentSlide = index;
-            slidesContainer.style.transform = `translateX(-${currentSlide * 25}%)`;
-            
-            // Update controls
-            controls.forEach((control, i) => {
-                if (i === currentSlide) {
-                    control.classList.add('active');
-                } else {
-                    control.classList.remove('active');
-                }
-            });
-        }
-
-        // Auto slide change
-        setInterval(() => {
-            showSlide(currentSlide + 1);
-        }, 5000);
-
-        // Control click events
-        controls.forEach((control, index) => {
-            control.addEventListener('click', () => {
-                showSlide(index);
-            });
-        });
-
-        // Modal Functions
-        function openPaymentModal(serviceId = 1) {
-            // Find the selected service
-            const service = services.find(s => s.id === serviceId);
-            if (service) {
-                currentSelectedService = service;
-                
-                // Update modal with service details
-                document.getElementById('modalServiceName').textContent = service.title;
-                document.getElementById('modalServicePrice').textContent = `₹${service.price}`;
-                document.getElementById('modalTotalPrice').textContent = `₹${service.price}`;
-                
-                // Update hidden fields
-                document.getElementById('selectedServiceId').value = service.id;
-                document.getElementById('selectedServicePrice').value = service.price;
-                
-                // Set minimum date to today
-                const today = new Date().toISOString().split('T')[0];
+            // Set min date for booking
+            const today = new Date().toISOString().split('T')[0];
+            if(document.getElementById('serviceDate')) {
                 document.getElementById('serviceDate').min = today;
-                
-                // Reset form
-                paymentForm.reset();
-                
-                // Show modal
-                paymentModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                document.getElementById('serviceDate').value = tomorrow.toISOString().split('T')[0];
             }
         }
 
-        function closePaymentModal() {
-            paymentModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function openSuccessModal(orderDetails) {
-            // Update success modal with order details
-            document.getElementById('successOrderId').textContent = orderDetails.orderId || 'ORD' + Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('successServiceName').textContent = currentSelectedService.title;
-            document.getElementById('successAmount').textContent = `₹${currentSelectedService.price}`;
+        // Update Content from Storage
+        function updateContent() {
+            const content = websiteData.content;
             
-            // Show success modal
-            successModal.classList.add('active');
+            // Hero Section
+            document.getElementById('heroTitle1').textContent = content.hero.title1;
+            document.getElementById('heroDesc1').textContent = content.hero.desc1;
+            document.getElementById('heroTitle2').textContent = content.hero.title2;
+            document.getElementById('heroDesc2').textContent = content.hero.desc2;
+            document.getElementById('heroTitle3').textContent = content.hero.title3;
+            document.getElementById('heroDesc3').textContent = content.hero.desc3;
+            document.getElementById('heroTitle4').textContent = content.hero.title4;
+            document.getElementById('heroDesc4').textContent = content.hero.desc4;
+            
+            // About Section
+            document.getElementById('aboutTitle').textContent = content.about.title;
+            document.getElementById('aboutDesc1').textContent = content.about.desc1;
+            document.getElementById('aboutDesc2').textContent = content.about.desc2;
+            
+            // Contact Section
+            document.getElementById('companyName').textContent = content.contact.companyName;
+            document.getElementById('companyAddress').textContent = content.contact.address;
+            document.getElementById('companyPhone').textContent = content.contact.phone;
+            document.getElementById('companyPhone').href = `tel:${content.contact.phone}`;
+            document.getElementById('companyEmail').textContent = content.contact.email;
+            document.getElementById('companyEmail').href = `mailto:${content.contact.email}`;
+            document.getElementById('businessHours').textContent = content.contact.hours;
+            document.getElementById('footerTitle').textContent = content.contact.footerTitle;
+            document.getElementById('footerDesc').textContent = content.contact.footerDesc;
+            
+            // Update phone buttons
+            document.querySelectorAll('.phone-btn').forEach(btn => {
+                btn.textContent = content.contact.phone;
+                btn.href = `tel:${content.contact.phone}`;
+            });
         }
 
-        function closeSuccessModal() {
-            successModal.classList.remove('active');
-            closePaymentModal();
-            document.body.style.overflow = 'auto';
-        }
-
-        // Render Services with payment buttons
+        // Render Services
         function renderServices() {
             servicesContainer.innerHTML = '';
-            services.forEach(service => {
+            websiteData.services.forEach(service => {
                 const serviceCard = document.createElement('div');
-                serviceCard.className = 'service-card';
+                serviceCard.className = 'service-card fade-in';
                 serviceCard.innerHTML = `
                     <div class="service-img" style="background-image: url('${service.image}')"></div>
                     <div class="service-content">
@@ -1121,7 +1724,7 @@
                             ${service.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('')}
                         </ul>
                         <div class="service-buttons">
-                            <a href="tel:${websiteContent.contact.phone}" class="btn btn-primary">Call to Book</a>
+                            <a href="tel:${websiteData.content.contact.phone}" class="btn btn-primary">Call to Book</a>
                             <button class="btn btn-success" onclick="openPaymentModal(${service.id})">Book & Pay Online</button>
                         </div>
                     </div>
@@ -1130,319 +1733,79 @@
             });
         }
 
-        // Admin Panel Functions
-        function openAdminPanel() {
-            adminOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Slider Functions
+        function initSlider() {
+            let currentSlide = 0;
+            const totalSlides = 4;
             
-            if (isAdminLoggedIn) {
-                showAdminEditor();
+            function showSlide(index) {
+                if (index >= totalSlides) index = 0;
+                if (index < 0) index = totalSlides - 1;
+                
+                currentSlide = index;
+                slidesContainer.style.transform = `translateX(-${currentSlide * 25}%)`;
+                
+                controls.forEach((control, i) => {
+                    control.classList.toggle('active', i === currentSlide);
+                });
+            }
+            
+            // Auto slide
+            setInterval(() => showSlide(currentSlide + 1), 5000);
+            
+            // Control clicks
+            controls.forEach((control, index) => {
+                control.addEventListener('click', () => showSlide(index));
+            });
+        }
+
+        // Set Copyright Year
+        function setCopyrightYear() {
+            document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+        }
+
+        // Payment Modal Functions
+        function openPaymentModal(serviceId = 1) {
+            const service = websiteData.services.find(s => s.id === serviceId);
+            if (service) {
+                currentSelectedService = service;
+                
+                document.getElementById('modalServiceName').textContent = service.title;
+                document.getElementById('modalServicePrice').textContent = `₹${service.price}`;
+                document.getElementById('modalTotalPrice').textContent = `₹${service.price}`;
+                document.getElementById('selectedServiceId').value = service.id;
+                document.getElementById('selectedServicePrice').value = service.price;
+                
+                document.getElementById('paymentModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         }
 
-        function closeAdminPanel() {
-            adminOverlay.classList.remove('active');
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        function adminLogin() {
-            const password = document.getElementById('adminPassword').value;
-            const loginStatus = document.getElementById('loginStatus');
+        function openSuccessModal(orderDetails) {
+            document.getElementById('successOrderId').textContent = orderDetails.orderId || 'ORD' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('successServiceName').textContent = currentSelectedService.title;
+            document.getElementById('successAmount').textContent = `₹${currentSelectedService.price}`;
             
-            // Default password: admin123 (Change this in production)
-            if (password === 'admin123') {
-                isAdminLoggedIn = true;
-                localStorage.setItem('sonipatAdminLoggedIn', 'true');
-                showAdminEditor();
-                loginStatus.className = 'status-message success';
-                loginStatus.textContent = 'Login successful!';
-            } else {
-                loginStatus.className = 'status-message error';
-                loginStatus.textContent = 'Incorrect password!';
-            }
-            
-            setTimeout(() => {
-                loginStatus.style.display = 'none';
-            }, 3000);
+            document.getElementById('successModal').classList.add('active');
         }
 
-        function showAdminEditor() {
-            adminLoginForm.style.display = 'none';
-            adminEditor.style.display = 'block';
-            
-            // Load current content into editor
-            loadContentIntoEditor();
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+            closePaymentModal();
         }
 
-        function loadContentIntoEditor() {
-            // Hero section
-            document.getElementById('editHeroTitle1').value = websiteContent.hero.title1;
-            document.getElementById('editHeroDesc1').value = websiteContent.hero.desc1;
-            document.getElementById('editHeroTitle2').value = websiteContent.hero.title2;
-            document.getElementById('editHeroDesc2').value = websiteContent.hero.desc2;
-            document.getElementById('editHeroTitle3').value = websiteContent.hero.title3;
-            document.getElementById('editHeroDesc3').value = websiteContent.hero.desc3;
-            document.getElementById('editHeroTitle4').value = websiteContent.hero.title4;
-            document.getElementById('editHeroDesc4').value = websiteContent.hero.desc4;
-            
-            // About section
-            document.getElementById('editAboutTitle').value = websiteContent.about.title;
-            document.getElementById('editAboutDesc1').value = websiteContent.about.desc1;
-            document.getElementById('editAboutDesc2').value = websiteContent.about.desc2;
-            
-            // Contact section
-            document.getElementById('editCompanyName').value = websiteContent.contact.companyName;
-            document.getElementById('editCompanyAddress').value = websiteContent.contact.address;
-            document.getElementById('editCompanyPhone').value = websiteContent.contact.phone;
-            document.getElementById('editCompanyEmail').value = websiteContent.contact.email;
-            document.getElementById('editBusinessHours').value = websiteContent.contact.hours;
-            document.getElementById('editFooterTitle').value = websiteContent.contact.footerTitle;
-            document.getElementById('editFooterDesc').value = websiteContent.contact.footerDesc;
-            
-            // Load services editor
-            loadServicesEditor();
-        }
-
-        function loadServicesEditor() {
-            const servicesEditor = document.getElementById('servicesEditor');
-            servicesEditor.innerHTML = '';
-            
-            services.forEach((service, index) => {
-                const serviceEditor = document.createElement('div');
-                serviceEditor.className = 'service-editor';
-                serviceEditor.style.border = '1px solid #eee';
-                serviceEditor.style.borderRadius = '5px';
-                serviceEditor.style.padding = '15px';
-                serviceEditor.style.marginBottom = '15px';
-                
-                serviceEditor.innerHTML = `
-                    <h4 style="margin-top: 0; color: #1a73e8;">Service ${index + 1}</h4>
-                    <div class="form-group">
-                        <label>Service Title</label>
-                        <input type="text" class="edit-service-title" value="${service.title}" data-index="${index}">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea class="edit-service-desc" data-index="${index}" rows="3">${service.description}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Price (₹)</label>
-                        <div class="price-input-group">
-                            <input type="number" class="edit-service-price" value="${service.price}" data-index="${index}">
-                            <span>${service.period}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Period Text</label>
-                        <input type="text" class="edit-service-period" value="${service.period}" data-index="${index}">
-                    </div>
-                    <div class="form-group">
-                        <label>Image URL</label>
-                        <input type="text" class="edit-service-image" value="${service.image}" data-index="${index}">
-                    </div>
-                    <div class="form-group">
-                        <label>Features (one per line)</label>
-                        <textarea class="edit-service-features" data-index="${index}" rows="4">${service.features.join('\n')}</textarea>
-                    </div>
-                `;
-                
-                servicesEditor.appendChild(serviceEditor);
-            });
-        }
-
-        function showAdminTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.admin-form').forEach(form => {
-                form.classList.remove('active');
-            });
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('.admin-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(`admin${tabName.charAt(0).toUpperCase() + tabName.slice(1)}Form`).classList.add('active');
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
-        }
-
-        function saveHeroContent() {
-            websiteContent.hero = {
-                title1: document.getElementById('editHeroTitle1').value,
-                desc1: document.getElementById('editHeroDesc1').value,
-                title2: document.getElementById('editHeroTitle2').value,
-                desc2: document.getElementById('editHeroDesc2').value,
-                title3: document.getElementById('editHeroTitle3').value,
-                desc3: document.getElementById('editHeroDesc3').value,
-                title4: document.getElementById('editHeroTitle4').value,
-                desc4: document.getElementById('editHeroDesc4').value
-            };
-            
-            saveContent();
-        }
-
-        function saveAboutContent() {
-            websiteContent.about = {
-                title: document.getElementById('editAboutTitle').value,
-                desc1: document.getElementById('editAboutDesc1').value,
-                desc2: document.getElementById('editAboutDesc2').value
-            };
-            
-            saveContent();
-        }
-
-        function saveContactInfo() {
-            websiteContent.contact = {
-                companyName: document.getElementById('editCompanyName').value,
-                address: document.getElementById('editCompanyAddress').value,
-                phone: document.getElementById('editCompanyPhone').value,
-                email: document.getElementById('editCompanyEmail').value,
-                hours: document.getElementById('editBusinessHours').value,
-                footerTitle: document.getElementById('editFooterTitle').value,
-                footerDesc: document.getElementById('editFooterDesc').value
-            };
-            
-            saveContent();
-        }
-
-        function saveServices() {
-            // Collect all service data from editor
-            const updatedServices = [];
-            
-            document.querySelectorAll('.service-editor').forEach((editor, index) => {
-                const title = editor.querySelector('.edit-service-title').value;
-                const description = editor.querySelector('.edit-service-desc').value;
-                const price = parseInt(editor.querySelector('.edit-service-price').value) || 0;
-                const period = editor.querySelector('.edit-service-period').value;
-                const image = editor.querySelector('.edit-service-image').value;
-                const featuresText = editor.querySelector('.edit-service-features').value;
-                const features = featuresText.split('\n').filter(f => f.trim() !== '');
-                
-                updatedServices.push({
-                    id: index + 1,
-                    title: title,
-                    description: description,
-                    price: price,
-                    displayPrice: `₹${price}`,
-                    period: period,
-                    features: features,
-                    image: image
-                });
-            });
-            
-            services = updatedServices;
-            localStorage.setItem('sonipatServices', JSON.stringify(services));
-            
-            saveContent();
-        }
-
-        function saveContent() {
-            // Save to localStorage
-            localStorage.setItem('sonipatContent', JSON.stringify(websiteContent));
-            
-            // Update website
-            initializeWebsite();
-            
-            // Show success message
-            const saveStatus = document.getElementById('saveStatus');
-            saveStatus.className = 'status-message success';
-            saveStatus.textContent = 'Content saved successfully!';
-            
-            setTimeout(() => {
-                saveStatus.style.display = 'none';
-            }, 3000);
-        }
-
-        function exportContent() {
-            const allContent = {
-                websiteContent: websiteContent,
-                services: services,
-                exportDate: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(allContent, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `sonipat-ac-service-backup-${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            const saveStatus = document.getElementById('saveStatus');
-            saveStatus.className = 'status-message success';
-            saveStatus.textContent = 'Content exported successfully!';
-            
-            setTimeout(() => {
-                saveStatus.style.display = 'none';
-            }, 3000);
-        }
-
-        function resetToDefault() {
-            if (confirm('Are you sure you want to reset all content to default? This cannot be undone.')) {
-                localStorage.removeItem('sonipatContent');
-                localStorage.removeItem('sonipatServices');
-                websiteContent = {
-                    hero: {
-                        title1: "Professional AC Repair Services",
-                        desc1: "Fast and reliable AC repair services in Sonipat. Our expert technicians are available 24/7 for emergency repairs.",
-                        title2: "AC Installation & Maintenance",
-                        desc2: "Professional installation of all AC brands and regular maintenance plans to keep your AC running efficiently.",
-                        title3: "Affordable Service Plans",
-                        desc3: "Get the best value with our affordable service packages. Quality service at reasonable prices.",
-                        title4: "Secure Online Payments",
-                        desc4: "Book and pay for AC services securely online using Razorpay. Multiple payment options available."
-                    },
-                    about: {
-                        title: "Why Choose Sonipat AC Service?",
-                        desc1: "With over 10 years of experience serving Sonipat and surrounding areas, we have established ourselves as the most trusted AC service provider in the region.",
-                        desc2: "Our team of certified technicians is trained to handle all major AC brands and models, ensuring your air conditioner receives the best care possible."
-                    },
-                    contact: {
-                        companyName: "Sonipat AC Service",
-                        address: "128/1, Near Baba Dham Mandir, Sonipat, Haryana",
-                        phone: "8816014071",
-                        email: "care@sonipathomeservice.com",
-                        hours: "Monday - Sunday: 8:00 AM - 9:00 PM\nEmergency Service: 24/7 Available",
-                        footerTitle: "Sonipat AC Service",
-                        footerDesc: "Professional AC repair, installation, and maintenance services in Sonipat. Your comfort is our priority."
-                    }
-                };
-                services = defaultServices;
-                
-                initializeWebsite();
-                loadContentIntoEditor();
-                
-                const saveStatus = document.getElementById('saveStatus');
-                saveStatus.className = 'status-message success';
-                saveStatus.textContent = 'Content reset to default successfully!';
-                
-                setTimeout(() => {
-                    saveStatus.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        function adminLogout() {
-            isAdminLoggedIn = false;
-            localStorage.removeItem('sonipatAdminLoggedIn');
-            adminEditor.style.display = 'none';
-            adminLoginForm.style.display = 'block';
-            document.getElementById('adminPassword').value = '';
-        }
-
-        // Razorpay Payment Function (from your original code)
+        // Razorpay Payment
         function processPayment() {
-            // Validate form
-            if (!paymentForm.checkValidity()) {
-                paymentForm.reportValidity();
+            if (!document.getElementById('paymentForm').checkValidity()) {
+                document.getElementById('paymentForm').reportValidity();
                 return;
             }
             
-            // Get form data
             const formData = {
                 name: document.getElementById('customerName').value,
                 phone: document.getElementById('customerPhone').value,
@@ -1456,110 +1819,76 @@
                 amount: currentSelectedService.price * 100,
             };
             
-            // Create order ID
-            const orderId = 'order_' + Math.random().toString(36).substr(2, 9);
-            
-            // Razorpay options
-            const options = {
-                key: RAZORPAY_KEY_ID,
-                amount: formData.amount,
-                currency: 'INR',
-                name: 'Sonipat AC Service',
-                description: formData.serviceName,
-                order_id: null,
-                handler: function(response) {
-                    console.log('Payment successful:', response);
-                    
-                    const receiptId = 'SONIPATAC' + Date.now().toString().substr(-8);
-                    
-                    // Show success modal
-                    openSuccessModal({
-                        orderId: receiptId,
-                        paymentId: response.razorpay_payment_id
-                    });
-                },
-                prefill: {
-                    name: formData.name,
-                    email: formData.email,
-                    contact: formData.phone
-                },
-                notes: {
-                    address: formData.address,
-                    service_date: formData.date,
-                    service_time: formData.time,
-                    ac_details: formData.acDetails
-                },
-                theme: {
-                    color: '#1a73e8'
-                },
-                modal: {
-                    ondismiss: function() {
-                        console.log('Payment modal closed');
-                    }
-                }
+            // Save order to localStorage
+            const orderId = 'ORD' + Date.now().toString().substr(-8);
+            const order = {
+                id: orderId,
+                ...formData,
+                timestamp: new Date().toISOString(),
+                status: 'pending',
+                paymentStatus: 'paid',
+                amount: currentSelectedService.price
             };
             
-            // Create Razorpay instance
-            const rzp = new Razorpay(options);
+            let orders = JSON.parse(localStorage.getItem('sonipatOrders')) || [];
+            orders.push(order);
+            localStorage.setItem('sonipatOrders', JSON.stringify(orders));
             
-            // Open payment modal
-            rzp.open();
+            // Send email notification
+            sendEmailNotification(order);
             
-            // Prevent form submission
+            // Show success
+            openSuccessModal({ orderId });
+            
+            // Reset form
+            document.getElementById('paymentForm').reset();
+            
             event.preventDefault();
-            return false;
         }
 
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeWebsite();
-            
-            // Set minimum date to today for service date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('serviceDate').min = today;
-            
-            // Set default date to tomorrow
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            document.getElementById('serviceDate').value = tomorrow.toISOString().split('T')[0];
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Close modals when clicking outside
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        if (modal.id === 'paymentModal') closePaymentModal();
-                        if (modal.id === 'successModal') closeSuccessModal();
-                    }
-                });
-            });
-            
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closePaymentModal();
-                    closeSuccessModal();
-                    closeAdminPanel();
+        // Mock Email Notification
+        function sendEmailNotification(order) {
+            console.log('Email sent to care@sonipathomeservice.com');
+            console.log('Order Details:', order);
+            // In production, integrate with EmailJS or similar service
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
+
+        // Close Modals
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    if (modal.id === 'paymentModal') closePaymentModal();
+                    if (modal.id === 'successModal') closeSuccessModal();
+                }
+            });
+        });
+
+        // Escape Key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePaymentModal();
+                closeSuccessModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initWebsite);
     </script>
 </body>
 </html>
