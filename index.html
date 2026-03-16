@@ -395,8 +395,16 @@
             display: flex;
             gap: 12px;
             margin-top: auto;
+            flex-wrap: wrap;
         }
         .service-buttons .btn { padding: 12px 18px; font-size: 0.9rem; }
+        .btn-more {
+            background: var(--primary-light);
+            box-shadow: none;
+        }
+        .btn-more:hover {
+            background: var(--primary);
+        }
 
         /* ===== ABOUT (fresh) ===== */
         .about-section {
@@ -589,8 +597,8 @@
     <!-- Hero Slider (AC service images) -->
     <section class="hero" id="home">
         <div class="slides">
-            <div class="slide slide-1"><div class="slide-content"><h2>Expert AC Repair</h2><p>Fast, certified technicians in Sonipat. Same-day service.</p><a href="tel:8816014071" class="btn">Call Now</a><a href="ac-bnr.webp" class="btn btn-outline">Book Online</a></div></div>
-            <div class="slide slide-2"><div class="slide-content"><h2>Installation & Uninstall</h2><p>All brands — split, window, cassette. Safe & professional.</p><a href="inst.jpg" class="btn">View Packages</a></div></div>
+            <div class="slide slide-1"><div class="slide-content"><h2>Expert AC Repair</h2><p>Fast, certified technicians in Sonipat. Same-day service.</p><a href="tel:8816014071" class="btn">Call Now</a><a href="/ac-bnr.webp" class="btn btn-outline">Book Online</a></div></div>
+            <div class="slide slide-2"><div class="slide-content"><h2>Installation & Uninstall</h2><p>All brands — split, window, cassette. Safe & professional.</p><a href="#services" class="btn">View Packages</a></div></div>
             <div class="slide slide-3"><div class="slide-content"><h2>Gas Charging</h2><p>Leak check & refill with warranty. Best prices in town.</p><a href="#services" class="btn">Know More</a></div></div>
             <div class="slide slide-4"><div class="slide-content"><h2>Annual Maintenance</h2><p>Keep your AC running like new. 4 visits + priority support.</p><a href="#services" class="btn">Explore AMC</a></div></div>
         </div>
@@ -694,6 +702,7 @@
                         <div class="service-buttons">
                             <a href="tel:8816014071" class="btn btn-primary" style="background:var(--primary);">Call</a>
                             <button class="btn btn-success" onclick="openPaymentModal(${s.id})" style="background:var(--secondary);">Book & Pay</button>
+                            <a href="https://www.sonipathomeservice.com/" target="_blank" class="btn btn-more" style="background:var(--primary-light);">More</a>
                         </div>
                     </div>
                 </div>`).join('');
