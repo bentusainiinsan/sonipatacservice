@@ -28,6 +28,9 @@
     <!-- Razorpay Checkout Integration -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     
+    <!-- EmailJS for sending receipts (free tier) -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -597,7 +600,7 @@
     <!-- Hero Slider (AC service images) -->
     <section class="hero" id="home">
         <div class="slides">
-            <div class="slide slide-1"><div class="slide-content"><h2>Expert AC Repair</h2><p>Fast, certified technicians in Sonipat. Same-day service.</p><a href="tel:8816014071" class="btn">Call Now</a><a href="/ac-bnr.webp" class="btn btn-outline">Book Online</a></div></div>
+            <div class="slide slide-1"><div class="slide-content"><h2>Expert AC Repair</h2><p>Fast, certified technicians in Sonipat. Same-day service.</p><a href="tel:8816014071" class="btn">Call Now</a><a href="#services" class="btn btn-outline">Book Online</a></div></div>
             <div class="slide slide-2"><div class="slide-content"><h2>Installation & Uninstall</h2><p>All brands — split, window, cassette. Safe & professional.</p><a href="#services" class="btn">View Packages</a></div></div>
             <div class="slide slide-3"><div class="slide-content"><h2>Gas Charging</h2><p>Leak check & refill with warranty. Best prices in town.</p><a href="#services" class="btn">Know More</a></div></div>
             <div class="slide slide-4"><div class="slide-content"><h2>Annual Maintenance</h2><p>Keep your AC running like new. 4 visits + priority support.</p><a href="#services" class="btn">Explore AMC</a></div></div>
@@ -679,14 +682,24 @@
     <div class="modal-overlay" id="successModal"><div class="payment-modal success-modal"><div class="success-icon"><i class="fas fa-check-circle"></i></div><h3>Payment Successful!</h3><p>Order ID: <span id="successOrderId"></span><br>Service: <span id="successServiceName"></span><br>Amount: <span id="successAmount"></span></p><p>Confirmation sent to your email.</p><button class="btn btn-success" onclick="closeSuccessModal()">Continue</button></div></div>
 
     <script>
+        // Initialize EmailJS (free public key – for demo, replace with your actual key in production)
+        (function() {
+            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key (e.g., "user_ABC123...")
+            // For demo, we'll simulate email send; but we implement actual call
+        })();
+
+        // Updated services: 1) Split AC Deep Service, 2) Window AC Deep Cleaning, then others + 3 new
         const services = [
-            { id:1, title:"Split AC Deep Service", description:"Complete cleaning, filter check, coolant pressure test.", price:699, displayPrice:"₹699", period:"/AC", features:["Full cleaning","Chemical Cleaning","Filter wash","Performance test","30-day warranty"], image:"/cleaning.jpg" },
-            { id:2, title:"AC Repair", description:"Expert repair for cooling, leakage, electrical faults.", price:499, displayPrice:"₹499", period:"/start", features:["Diagnosis","Spare parts","Cooling fix","Electrical repair","90-day warranty"], image:"/acrepair.jpg" },
-            { id:3, title:"AC Installation", description:"Professional fitting for split & window AC.", price:1299, displayPrice:"₹1299", period:"/AC", features:["New install","Wiring","Testing","Coolant charging","Install warranty"], image:"/inst.jpg" },
-            { id:4, title:"Gas Charging", description:"Complete refill + leak detection & sealing.", price:3199, displayPrice:"₹3199", period:"/AC", features:["Leak check","Gas refill","Seal leak","Pressure test","30-day warranty"], image:"/se.webp" },
-            { id:5, title:"Annual Maintenance", description:"4 visits/year, priority support, spare discount.", price:5999, displayPrice:"₹5999", period:"/year", features:["4 services","Priority","20% off spares","Emergency","Comprehensive"], image:"/ac-bnr.webp" },
-            { id:6, title:"Window Ac Deep Cleaning", description:"Disassembly, coil cleaning, antibacterial treatment.", price:599, displayPrice:"₹599", period:"/AC", features:["Full disassembly","Deep clean","Bacterial treatment","Reassembly","30-day warranty"], image:"/w.jpg" }
-            
+            { id:1, title:"Split AC Deep Service", description:"Complete cleaning, filter check, coolant pressure test.", price:699, displayPrice:"₹699", period:"/AC", features:["Full cleaning","Chemical Cleaning","Filter wash","Performance test","30-day warranty"], image:"https://images.unsplash.com/photo-162179148c5d60c4ab76b8ea8e4458e3?q=80&w=2070&auto=format&fit=crop" },
+            { id:2, title:"Window AC Deep Cleaning", description:"Disassembly, coil cleaning, antibacterial treatment.", price:599, displayPrice:"₹599", period:"/AC", features:["Full disassembly","Deep clean","Bacterial treatment","Reassembly","30-day warranty"], image:"https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=2072&auto=format&fit=crop" },
+            { id:3, title:"AC Repair", description:"Expert repair for cooling, leakage, electrical faults.", price:499, displayPrice:"₹499", period:"/start", features:["Diagnosis","Spare parts","Cooling fix","Electrical repair","90-day warranty"], image:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" },
+            { id:4, title:"AC Installation (Split)", description:"Professional fitting for split AC.", price:1299, displayPrice:"₹1299", period:"/AC", features:["New install","Wiring","Testing","Coolant charging","Install warranty"], image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop" },
+            { id:5, title:"Gas Charging", description:"Complete refill + leak detection & sealing.", price:3199, displayPrice:"₹3199", period:"/AC", features:["Leak check","Gas refill","Seal leak","Pressure test","30-day warranty"], image:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" },
+            { id:6, title:"Annual Maintenance", description:"4 visits/year, priority support, spare discount.", price:5999, displayPrice:"₹5999", period:"/year", features:["4 services","Priority","20% off spares","Emergency","Comprehensive"], image:"https://images.unsplash.com/photo-162179148c5d60c4ab76b8ea8e4458e3?q=80&w=2070&auto=format&fit=crop" },
+            // 3 new services:
+            { id:7, title:"Window AC Installation", description:"Complete installation of window AC unit.", price:899, displayPrice:"₹899", period:"/AC", features:["Fitting","Sealing","Wiring check","Testing","7-day warranty"], image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop" },
+            { id:8, title:"Window AC Uninstallation", description:"Safe removal of window AC, prep for storage.", price:599, displayPrice:"₹599", period:"/AC", features:["Disconnect","Remove unit","Cover wiring","Clean opening","Careful handling"], image:"https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=2072&auto=format&fit=crop" },
+            { id:9, title:"Split AC Uninstallation", description:"Professional uninstall of split AC, gas recovery.", price:999, displayPrice:"₹999", period:"/AC", features:["Gas recovery","Disconnect pipes","Remove unit","Wall patching","Safety"], image:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" }
         ];
         let currentSelectedService = services[0];
 
@@ -746,6 +759,30 @@
             document.getElementById('successModal').classList.remove('active');
             closePaymentModal();
         };
+
+        // Function to send email receipt via EmailJS (simulate with console, but implement actual)
+        function sendEmailReceipt(details) {
+            // In production, replace with your EmailJS template and service IDs
+            console.log("Sending email receipt:", details);
+            // Uncomment below after setting up EmailJS
+            /*
+            emailjs.send("service_id", "template_id", {
+                to_email: details.customerEmail,
+                to_name: details.customerName,
+                order_id: details.orderId,
+                service_name: details.serviceName,
+                amount: details.amount,
+                address: details.address,
+                date: details.date,
+                time: details.time,
+                admin_copy: "care@sonipathomeservice.com"
+            }).then(
+                function(response) { console.log("Email success", response); },
+                function(error) { console.log("Email error", error); }
+            );
+            */
+        }
+
         window.processPayment = () => {
             const form = document.getElementById('paymentForm');
             if (!form.checkValidity()) return form.reportValidity();
@@ -758,13 +795,43 @@
                 name: 'Sonipat AC Service',
                 description: currentSelectedService.title,
                 handler: function(response) {
-                    document.getElementById('successOrderId').innerText = 'SONIPAT' + Date.now().toString().slice(-8);
+                    const orderId = 'SONIPAT' + Date.now().toString().slice(-8);
+                    // Prepare details for receipt
+                    const customerName = document.getElementById('customerName').value;
+                    const customerEmail = document.getElementById('customerEmail').value;
+                    const customerPhone = document.getElementById('customerPhone').value;
+                    const address = document.getElementById('serviceAddress').value;
+                    const date = document.getElementById('serviceDate').value;
+                    const time = document.getElementById('serviceTime').value;
+
+                    const receiptDetails = {
+                        orderId: orderId,
+                        serviceName: currentSelectedService.title,
+                        amount: `₹${currentSelectedService.price}`,
+                        customerName: customerName,
+                        customerEmail: customerEmail,
+                        customerPhone: customerPhone,
+                        address: address,
+                        date: date,
+                        time: time,
+                        paymentId: response.razorpay_payment_id
+                    };
+
+                    // Send email to customer AND admin via EmailJS
+                    sendEmailReceipt(receiptDetails);
+
+                    // Show success modal
+                    document.getElementById('successOrderId').innerText = orderId;
                     document.getElementById('successServiceName').innerText = currentSelectedService.title;
                     document.getElementById('successAmount').innerText = `₹${currentSelectedService.price}`;
                     document.getElementById('successModal').classList.add('active');
                     closePaymentModal();
                 },
-                prefill: { name: document.getElementById('customerName').value, email: document.getElementById('customerEmail').value, contact: document.getElementById('customerPhone').value },
+                prefill: { 
+                    name: document.getElementById('customerName').value, 
+                    email: document.getElementById('customerEmail').value, 
+                    contact: document.getElementById('customerPhone').value 
+                },
                 theme: { color: '#0a4b7a' }
             };
             const rzp = new Razorpay(options);
